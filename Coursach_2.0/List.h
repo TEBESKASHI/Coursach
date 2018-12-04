@@ -20,13 +20,15 @@ public:
 	void print();
 	void sort();
 	void search();
+	void edit();
+	void filtr();
 private:
 	template<typename T>
 	class Node {
 	public:
 		Node *pNext;
 		T data;
-		Node(T data = T(), Node *pNext = nullptr) {
+		Node(T data = T(), Node *pNext = NULL) {
 			this->data = data;
 			this->pNext = pNext;
 		}
@@ -39,7 +41,7 @@ private:
 template<typename T>
 List<T>::List() {
 	size = 0;
-	first = nullptr;
+	first = NULL;
 }
 
 template<typename T>
@@ -55,7 +57,7 @@ void List<T>::addLastElement(T data) {
 	}
 	else {
 		Node<T> *current = this->first;
-		while (current->pNext != nullptr) {
+		while (current->pNext != NULL) {
 			current = current->pNext;
 		}
 		current->pNext = new Node<T>(data);
@@ -76,12 +78,65 @@ void List<T>::print() {
 template<typename T>
 void List<T>::sort() {
 	{
-		Node<T> *p = first;
-		while (p != NULL)
-		{
-			p->data.sort(true);
-			p = p->pNext;
+		if (first != NULL) {
+			Node<T> *p = first;
+			Node<T> *pn = first;
+			while (p->pNext != NULL)
+			{
+				pn = p->pNext;
+				while (pn != NULL) {
+					p->data.sort(p->data, pn->data);
+					pn = pn->pNext;
+				}
+				p = p->pNext;
+			}
 		}
+		else cout << "Нечего сортировать" << endl;
+	}
+}
+template<typename T>
+void List<T>::filtr() {
+	{
+		Node<T> *p = first;
+		int choice = p->data.selectFiltrCriteria();
+		cout << "Введите границы" << endl;
+		int minAge;
+		int maxAge;
+		cout << "ОТ: ";
+		cin >> minAge;
+		cout << "До: ";
+		cin >> maxAge;
+		if (minAge > maxAge) {
+			int temp;
+			temp = minAge;
+			minAge = maxAge;
+			maxAge = temp;
+		}
+		p->data.filtr(choice, 1, minAge, maxAge);
+			while (p->pNext != NULL)
+			{
+				p->data.filtr(choice, 2, minAge, maxAge);
+				p = p->pNext;
+			}
+			p->data.filtr(choice, 3, minAge, maxAge);
+	}
+}
+template<typename T>
+void List<T>::edit() {
+	{
+		Node<T> *p = first;
+		int choice=p->data.selectEditCriteria();
+		cout << "Кого хотите изменить?: ";
+		int number;
+		int h = 0;
+		cin >> number;
+		number--;
+		while (h!=number)
+		{
+			p = p->pNext;
+			h++;
+		}
+		p->data.edit(choice);
 	}
 }
 template<typename T>

@@ -11,6 +11,12 @@
 #include <stdlib.h>
 #include "List.h"
 #include "Stack.h"
+#include <iomanip>
+#include <string.h>
+#include <math.h>
+#include <stdio.h>
+#include <ctype.h> 
+#include <locale.h>
 using namespace std;
 class Person {
 protected:
@@ -34,41 +40,33 @@ public:
 
 //класс заказов
 //заказ будет инкапсулирвоан в клиента?????
-class Order {
-protected:
-	Order *firstOrd;
-	Order *lastOrd;
-	Order *nextOrd;
-	char *orderName;
-	int orderCode;
-	int clientCode;
-	int OrderCost;
-	int DeliveryCost;
-	//int dateOfOrder;
-public:
-	friend class Client;
-	Order() {
-		this->orderName = nullptr;
-		this->orderCode = NULL;
-		this->clientCode = NULL;
-		this->OrderCost = NULL;
-		this->DeliveryCost = NULL;
-	}
-	~Order() {
-		delete orderName;
-	}
-	void setOrderInf();
-	void getOrderInf();
-	/*void AddClientOrder();*/
-};
 
 //класс  лиент
-class Client :public Person, public Order{
-private:
-	Client *firstCl;
-	Client *lastCl;
-	Client *next;
+class Client :public Person{
 protected:
+	class Order {
+	protected:
+		char **orderName;
+		int *orderCode;
+		int *clientCode;
+		int *OrderCost;
+		int *DeliveryCost;
+		//int dateOfOrder;
+	public:
+		Order() {
+			this->orderName = nullptr;
+			this->orderCode = NULL;
+			this->clientCode = NULL;
+			this->OrderCost = NULL;
+			this->DeliveryCost = NULL;
+		}
+		~Order() {
+			delete orderName;
+		}
+		void setOrderInf();
+		void getOrderInf();
+		/*void AddClientOrder();*/
+	};
 	char street[20];
 	int houseNumber;
 	int flat;
@@ -76,31 +74,11 @@ protected:
 	int houseNumberFind;
 
 public:
-	friend ostream& operator<<(ostream& os, Client &client) {
-		os << client.name;
-		os << client.surname;
-		os << client.age;
-		os << client.street;
-		os << client.houseNumber;
-		os << client.flat;
-		return os;
-	}
-	friend istream& operator>>(istream& is, Client& client) {
-		cout << "¬ведите им€ клиента: ";
-		is >> client.name;
-		cout << "¬ведите фамилию клиента: ";
-		is >> client.surname;
-		cout << "¬ведите возрваст клиента: ";
-		is >> client.age;
-		cout << "¬ведите название улицы проживани€ клиента: ";
-		is >> client.street;
-		cout << "¬ведите номер дома клиента: ";
-		is >> client.houseNumber;
-		cout << "¬ведите номер квартиры клиента: ";
-		is >> client.flat;
-		return is;
-	}
-
+	void sort(Client &obj, Client &obj1);
+	int selectFiltrCriteria();
+	void edit(int choice);
+	void filtr(int choice,int a, int minAge, int maxAge);
+	int selectEditCriteria();
 	Client() {
 		/*this->street = nullptr;*/
 		this->houseNumber = NULL;
@@ -117,7 +95,7 @@ public:
 	void search(int i, char *input);
 };
 
-class Admin	{
+class Admin {
 protected:
 	char *password;
 	char *login;
@@ -127,12 +105,13 @@ public:
 	void encryption();
 	void set() {
 		cout << "¬ведите логин: ";
-		password = new char[30];
 		login = new char[30];
-		cin >> login;
+		cin >> this->login;
 		cout << "¬ведите пароль: ";
-		cin >> password;
-		cin >> root;
+		password = new char[30];
+		cin >> this->password;
+		cout << "¬ведите права: ";
+		cin >> this->root;
 	}
 	void print() {
 		cout << this->login << endl;
@@ -140,14 +119,15 @@ public:
 		cout << this->root << endl;
 	}
 	Admin() {
-		this->password = nullptr;
-		this->login = nullptr;
 		this->root = 1;
+		this->login = NULL;
+		this->password = NULL;
 	}
-	int compare(char *log,char *pas) {
-		if (strcmp(login, log) == 0 && strcmp(password, pas) == 0) {
-			return root;
+	int compare(char *log, char *pas) {
+		if (strcmp(this->login, log) == 0 && strcmp(this->password, pas) == 0) {
+			return this->root;
 		}
+		else cout << "Kek";
 		return 0;
 	}
 };

@@ -16,7 +16,7 @@ private:
 	public:
 		NodeS * pNext;
 		H data;
-		NodeS(H data = H(), NodeS *pNext = nullptr) {
+		NodeS(H data = H(),NodeS *pNext = NULL) {
 			this->data = data;
 			this->pNext = pNext;
 		}
@@ -25,7 +25,7 @@ private:
 };
 template<typename H>
 Stack<H>::Stack() {
-	top = nullptr;
+	top = NULL;
 }
 
 template<typename H>
@@ -50,7 +50,7 @@ Stack<H>::~Stack() {
 }
 template<typename H>
 void Stack<H>::push(H data) {
-	NodeS<H> *cur = new NodeS<H>(data, top);
+	NodeS<H> *cur = new NodeS<H>(data);
 	top = cur;
 }
 template<typename H>
@@ -79,7 +79,6 @@ void Stack<H>::downloadInfo(H data, char *path) {
 		clearList();
 		while (fin.read((char*)&data, sizeof(H))) {
 			push(data);
-			data.print();
 		}
 	}
 	fin.close();

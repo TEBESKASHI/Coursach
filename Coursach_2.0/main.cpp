@@ -13,6 +13,7 @@ int menu() {
 		cout << "7.Сохранить в файл" << endl;
 		cout << "8.Поиск" << endl;
 		cout << "0.Выход" << endl;
+		cout << "9.Редактирование" << endl;
 		cin >> x;
 		switch (x) {
 		case 1:
@@ -29,12 +30,16 @@ int menu() {
 			client.getMainClientInfo();
 			break;
 		}
-		case 3:
-		{
-			int del;
-			cout << "Введите номер клиента, которого желаете удалить: ";
-			cin >> del;
-			lst.deleteElement(del);
+		//case 3:
+		//{
+		//	int del;
+		//	cout << "Введите номер клиента, которого желаете удалить: ";
+		//	cin >> del;
+		//	lst.deleteElement(del);
+		//	break;
+		//}
+		case 3: {
+			lst.filtr();
 			break;
 		}
 		case 4:
@@ -63,11 +68,15 @@ int menu() {
 			lst.search();
 			break;
 		}
-		case 0:
+	/*	case 0:
 		{
 			return 0;
 			break;
-		}
+		}*/
+		case 0:
+			lst.sort();
+			break;
+		case 9:lst.edit(); break;
 		default:
 		{
 			cout << "Выберите существующих пункт меню" << endl;
@@ -86,8 +95,10 @@ int main() {
 	Stack<Admin>adm;
 	admin.set();
 	adm.push(admin);
-	adm.save("Admin.txt");
-	adm.downloadInfo(admin,"Admin.txt");
+	admin.set();
+	adm.push(admin);
+	admin.set();
+	adm.push(admin);
 	adm.show();
 	while (1) {
 		cout << "1.Вход" << endl;

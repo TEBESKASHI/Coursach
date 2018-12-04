@@ -29,7 +29,104 @@ int Client::selectSearchCriteria() {
 	cin >> choice;
 	return choice;
 }
-
+int Client::selectFiltrCriteria() {
+	int choice;
+	cout << "Меню фильтрации" << endl;
+	cout << "1.Фильтрация по возрасту" << endl;
+	cin >> choice;
+	return choice;
+}
+void Client::filtr(int choice, int a,int minAge,int maxAge) {
+	switch (choice) {
+	case 1: {
+		if (a == 1) {
+				cout << "|`````````|" << "```````````|" << endl;
+				cout << "|   Имя   |" << "  Возраст  |" << endl;
+		}
+		else if (a == 2) {
+			if (this->age > minAge && this->age < maxAge) {
+				cout << "|`````````|" << "```````````|" << endl;
+				cout << "|" << setw(9) << this->name << "|" << setw(11) << this->age << "|" << endl;
+			}
+		}
+		else {
+			if (this->age > minAge && this->age < maxAge) {
+				cout << "|`````````|" << "```````````|" << endl;
+				cout << "|"<<setw(9) << this->name << "|"<<setw(11) << this->age <<"|"<< endl;
+				cout << "``````````" << "`````````````" << endl;
+			}
+		}
+		break;
+	}
+	}
+}
+int Client::selectEditCriteria() {
+	int choice;
+	cout << "Что будем редактировать, простак?" << endl;
+	cout << "1.Имя" << endl;
+	cout << "2.Фамилию" << endl;
+	cout << "3.Возраст" << endl;
+	cout << "4.Название улицы" << endl;
+	cout << "5.Номер дома" << endl;
+	cout << "6.Номер квартиры" << endl;
+	cout << "7.ВСе" << endl;
+	cin >> choice;
+	return choice;
+}
+void Client::edit(int choice) {
+	switch (choice) {
+	case 1:
+	{
+		cout << "Редактируемое имя: " << this->name << endl;
+		cin >> this->name;
+		break;
+	}
+	case 2:
+	{
+		cout << "Редактируемая фамилия: " << this->surname << endl;
+		cin >> this->surname;
+		break;
+	}
+	case 3:
+	{
+		cout << "Редактируемый возраст: " << this->age << endl;
+		cin >> this->age;
+		break;
+	}
+	case 4:
+	{
+		cout << "Редактируемое название улицы: " << this->street << endl;
+		cin >> this->street;
+		break;
+	}
+	case 5:
+	{
+		cout << "Редактируемый номер дома: " << this->houseNumber << endl;
+		cin >> this->houseNumber;
+		break;
+	}
+	case 6:
+	{
+		cout << "Редактируемый номер квартиры: " << this->flat << endl;
+		cin >> this->flat;
+		break;
+	}
+	case 7: {
+		cout << "Редактируемое имя: " << this->name << endl;
+		cin >> this->name;
+		cout << "Редактируемая фамилия: " << this->surname << endl;
+		cin >> this->surname;
+		cout << "Редактируемый возраст: " << this->age << endl;
+		cin >> this->age;
+		cout << "Редактируемое название улицы: " << this->street << endl;
+		cin >> this->street;
+		cout << "Редактируемый номер дома: " << this->houseNumber << endl;
+		cin >> this->houseNumber;
+		cout << "Редактируемый номер квартиры: " << this->flat << endl;
+		cin >> this->flat; break;
+	}
+	}
+}
 //поиск по критериям
 void Client::search(int choice, char *input) {
 		switch (choice) {
@@ -138,6 +235,19 @@ void Client::getMainClientInfo() {
 	cout << "Улица проживания клиента: " << this->street << endl;
 	cout << "Номер дома клиента: " << this->houseNumber << endl;
 	cout << "Номер квартиры клиента: " << this->flat << endl;
+}
+bool names(char left[30], char right[30]) {
+	return strcmp(left, right) > 0;
+}
+void Client::sort(Client &obj,Client &obj1) {
+			if (names(obj.name, obj1.name)) {
+				std::swap(obj.name, obj1.name);
+				std::swap(obj.surname, obj1.surname);
+				std::swap(obj.age, obj1.age);
+				std::swap(obj.street, obj1.street);
+				std::swap(obj.houseNumber, obj1.houseNumber);
+				std::swap(obj.flat, obj1.flat);
+	}
 }
 
 //void Client::save(Client &obj) {
