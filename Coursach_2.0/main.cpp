@@ -1,10 +1,58 @@
 #include "Header.h"
-int editMenu(List<Client> &lst, List<Order> &ord) {
+int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord) {
 	Client client;
+	Product product;
 	Order order;
 	while (1) {
+		cout << "\t\t\t\t\tМеню заказов" << endl;
+		cout << "1.Оформить заказ" << endl;
+		cout << "2.Список заказов" << endl;
+		cout << "3.Завершить заказ( досрочно)" << endl;
+		cout << "4.Сортировать заказы" << endl;
+		cout << "5.Фильтрация заказов" << endl;
+		cout << "6.Поиск заказов" << endl;
+		cout << "0.Выход" << endl;
+		int x;
+		cin >> x;
+		switch (x) {
+		case 1: {
+			system("cls");
+			client = lst.perebor(); product = pro.perebor(); order.set(client, product); ord.addLastElement(order); break;
+		}
+		case 2: {
+			system("cls"); ord.print(); system("pause"); break;
+		}
+		case 3: {
+			system("cls"); 	int del;
+			cout << "Введите номер заказа, который желаете удалить: ";
+			cin >> del;
+			cout << "Вы удалили:" << endl;
+			ord.deleteElement(del); system("pause");
+			break;
+		}
+		case 4:break;
+		case 5: {
+			system("cls");
+			ord.filtr();
+			system("pause");
+			break;
+		}
+		case 6: {
+			system("cls");
+			ord.search();
+			system("pause");
+			break;
+		}
+		case 0:return 0; break;
+		}
+	}
+}
+int editMenu(List<Client> &lst, List<Product> &pro) {
+	Client client;
+	Product product;
+	while (1) {
 		cout << "1.Редактирование клиентов" << endl;
-		cout << "2.Редактирование заказов" << endl;
+		cout << "2.Редактирование товаров" << endl;
 		cout << "3.Редактирование курьеров" << endl;
 		cout << "4.Выход" << endl;
 		int x;
@@ -17,7 +65,7 @@ int editMenu(List<Client> &lst, List<Order> &ord) {
 			break; }
 		case 2: {
 			system("cls");
-			ord.edit();
+			pro.edit();
 			system("pause");
 			break;
 		}
@@ -27,12 +75,12 @@ int editMenu(List<Client> &lst, List<Order> &ord) {
 		}
 	}
 }
-int searchMenu(List<Client> &lst, List<Order> &ord) {
+int searchMenu(List<Client> &lst, List<Product> &pro) {
 	Client client;
-	Order order;
+	Product product;
 	while (1) {
 		cout << "1.Поиск клиентов" << endl;
-		cout << "2.Поиск заказов" << endl;
+		cout << "2.Поиск товаров" << endl;
 		cout << "3.Поиск курьеров" << endl;
 		cout << "4.Выход" << endl;
 		int x;
@@ -45,7 +93,7 @@ int searchMenu(List<Client> &lst, List<Order> &ord) {
 			break; }
 		case 2: {
 			system("cls");
-			ord.search();
+			pro.search();
 			system("pause");
 			break;
 		}
@@ -55,12 +103,12 @@ int searchMenu(List<Client> &lst, List<Order> &ord) {
 		}
 	}
 }
-int delMenu(List<Client> &lst, List<Order> &ord) {
+int delMenu(List<Client> &lst, List<Product> &pro) {
 	Client client;
-	Order order;
+	Product product;
 	while (1) {
 		cout << "1.Удаление клиентов" << endl;
-		cout << "2.Удаление заказов" << endl;
+		cout << "2.Удаление товаров" << endl;
 		cout << "3.Удаление курьеров" << endl;
 		cout << "4.Выход" << endl;
 		int x;
@@ -77,10 +125,10 @@ int delMenu(List<Client> &lst, List<Order> &ord) {
 			break; }
 		case 2: {
 			system("cls"); 	int del;
-			cout << "Введите номер заказа, который желаете удалить: ";
+			cout << "Введите номер товара, который желаете удалить: ";
 			cin >> del;
 			cout << "Вы удалили:" << endl;
-			ord.deleteElement(del); system("pause");
+			pro.deleteElement(del); system("pause");
 			break;
 		}
 		case 3:break;
@@ -89,12 +137,12 @@ int delMenu(List<Client> &lst, List<Order> &ord) {
 		}
 	}
 }
-int printMenu(List<Client> &lst, List<Order> &ord) {
+int printMenu(List<Client> &lst, List<Product> &pro) {
 	Client client;
-	Order order;
+	Product product;
 	while (1) {
 		cout << "1.Просмотр клиентов" << endl;
-		cout << "2.Просмотр заказов" << endl;
+		cout << "2.Просмотр товаров" << endl;
 		cout << "3.Просмоттр курьеров" << endl;
 		cout << "4.Выход" << endl;
 		int x;
@@ -106,7 +154,7 @@ int printMenu(List<Client> &lst, List<Order> &ord) {
 			system("pause");
 			break; }
 		case 2: {
-			system("cls"); ord.print(); system("pause");
+			system("cls"); pro.print(); system("pause");
 			break;
 		}
 		case 3:break;
@@ -115,12 +163,12 @@ int printMenu(List<Client> &lst, List<Order> &ord) {
 		}
 	}
 }
-int addMenu(List<Client> &lst,List<Order> &ord) {
+int addMenu(List<Client> &lst,List<Product> &pro) {
 	Client client;
-	Order order;
+	Product product;
 	while (1) {
 		cout << "1.Добавление клиента" << endl;
-		cout << "2.Добавление заказа" << endl;
+		cout << "2.Добавление товара" << endl;
 		cout << "3.Добавление курьера" << endl;
 		cout << "4.Выход" << endl;
 		int x;
@@ -133,9 +181,9 @@ int addMenu(List<Client> &lst,List<Order> &ord) {
 			client.getMainClientInfo(); 
 			system("pause"); 
 			break; }
-		case 2: {order.add(); 
-			ord.addLastElement(order);
-			order.print();
+		case 2: {product.add();
+			pro.addLastElement(product);
+			product.print();
 			system("pause");
 			break;
 		}
@@ -145,9 +193,10 @@ int addMenu(List<Client> &lst,List<Order> &ord) {
 		}
 	}
 }
-int menu(List<Client> &lst, List<Order> &ord) {
+int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 	int a = 0;
 	Client client;
+	Product product;
 	Order order;
 	int x;
 	while (1) {
@@ -159,17 +208,18 @@ int menu(List<Client> &lst, List<Order> &ord) {
 		cout << "6.Поиск" << endl;
 		cout << "7.Редактирование" << endl;
 		cout << "8.Сортировка" << endl;
+		cout << "9.Оформить заказ" << endl;
 		cout << "0.Выход" << endl;
 		cin >> x;
 		switch (x) {
 		case 1:
 		{
-			addMenu(lst,ord);
+			addMenu(lst,pro);
 			break;
 		}
 		case 2:
 		{
-			delMenu(lst,ord);
+			delMenu(lst,pro);
 			break;
 		}
 		case 3: {
@@ -178,21 +228,23 @@ int menu(List<Client> &lst, List<Order> &ord) {
 		}
 		case 4:
 		{
-			printMenu(lst,ord);
+			printMenu(lst,pro);
 			break;
 		}
 		case 5:
 		{
 			a = 1;
 			lst.save("ClientDatabase.txt");
+			pro.save("ProductDatabase.txt");
 			ord.save("OrderDatabase.txt");
 			break;
 		}
 		case 6:
 		{
-			searchMenu(lst,ord);
+			searchMenu(lst,pro);
 			break;
 		}
+		case 9: {orderMenu(lst,pro,ord); break; }
 		case 0:
 		{
 			if (a == 0) {
@@ -205,6 +257,7 @@ int menu(List<Client> &lst, List<Order> &ord) {
 					switch (x) {
 					case 1: {
 						lst.save("ClientDatabase.txt");
+						pro.save("ProductDatabase.txt");
 						ord.save("OrderDatabase.txt");
 						return 0;
 						break;
@@ -220,7 +273,7 @@ int menu(List<Client> &lst, List<Order> &ord) {
 		case 8:
 			lst.sort();
 			break;
-		case 7:editMenu(lst,ord); break;
+		case 7:editMenu(lst,pro); break;
 		default:
 		{
 			cout << "Выберите существующих пункт меню" << endl;
@@ -238,11 +291,14 @@ int main() {
 	Admin admin;
 	Stack<Admin>adm;
 	List<Client>lst;
+	List<Product>pro;
 	List<Order>ord;
 	Client client;
+	Product product;
 	Order order;
+	ord.downloadInfo(order,"OrderDatabase.txt");
 	lst.downloadInfo(client, "ClientDatabase.txt");
-	ord.downloadInfo(order, "OrderDatabase.txt");
+	pro.downloadInfo(product, "ProductDatabase.txt");
 	admin.set();
 	adm.push(admin);
 	adm.save("Admin.txt");
@@ -269,7 +325,7 @@ int main() {
 			else if (i == 2) {
 				system("cls");
 				cout << "Ну привет, любимый" << endl;
-				menu(lst,ord);
+				menu(lst,pro,ord);
 			}
 			else { system("cls"); cout << "Проверьте правильность ввода данных" << endl; }
 			break; }

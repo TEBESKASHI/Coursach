@@ -22,6 +22,27 @@ public:
 	void search();
 	void edit();
 	void filtr();
+	T perebor() {
+		Node<T> *p = first;
+		print();
+		int number;
+		int a = 0;
+		int k = getSize();
+		cin >> number;
+		number--;
+		cout << endl;
+		while(number >= k) {
+			cout << "Нет такого номера, повторите ввод: ";
+				cin >> number;
+				number--;
+			system("cls");
+		}
+		while (a != number) {
+			p = p->pNext;
+			a++;
+		}
+		return p->data;
+	}
 private:
 	template<typename T>
 	class Node {
@@ -48,13 +69,10 @@ template<typename T>
 List<T>::~List() {
 	clearList();
 }
-
-//добавление в конец списка
 template<typename T>
 void List<T>::addLastElement(T data) {
 	if (first == nullptr) {
 		first = new Node<T>(data, first);
-		size++;
 	}
 	else {
 		Node<T> *current = this->first;
@@ -223,7 +241,6 @@ void List<T>::insertElement(T data, int index) {
 		size++;
 	}
 }
-
 //удаление элемента по индексу
 template<typename T>
 void List<T>::deleteElement(int index) {
@@ -232,6 +249,7 @@ void List<T>::deleteElement(int index) {
 		cout << "Некорректный ввод" << endl;
 	}
 	else if (index == 0) {
+		first->data.print();
 		deleteFirstElement();
 	}
 	else {

@@ -16,8 +16,6 @@
 #include <math.h>
 #include <stdio.h>
 #include <ctype.h> 
-#include <locale.h>
-#define N 10
 using namespace std;
 class Person {
 protected:
@@ -41,47 +39,39 @@ public:
 
 //класс заказов
 //заказ будет инкапсулирвоан в клиента?????
-class Order {
+class Product {
 protected:
-	char orderName[30];
-	int orderCode;
-	int clientCode;
-	int OrderCost;
-	int DeliveryCost;
-	//int dateOfOrder;
+	friend class Order;
+	char ProductName[30];
+	int ProductCode;
+	int ProductCost;
+	//int dateOfProduct;
 public:
-	Order() {
-		this->orderCode = NULL;
-		this->clientCode = NULL;
-		this->OrderCost = NULL;
-		this->DeliveryCost = NULL;
+	Product() {
+		this->ProductCode = NULL;
+		this->ProductCost = NULL;
 	}
-	void add();
-	void print();
-	void setOrderInf();
-	void getOrderInf();
-	int selectSearchCriteria();
-	void search(int choice, char *input);
-	int selectEditCriteria();
-	void edit(int choice);
-	/*void AddClientOrder();*/
+	virtual void add();
+	virtual void print();
+	virtual int selectSearchCriteria();
+	virtual void search(int choice, char *input);
+	virtual int selectEditCriteria();
+	virtual void edit(int choice);
+	/*void AddClientProduct();*/
 };
 //класс Клиент
 class Client :public Person{
 protected:
-	List<Order>order;
+	friend class Order;
 	char street[20];
 	int houseNumber;
 	int flat;
-	char key[20];
-	int houseNumberFind;
 public:
-	void pokupka();
-	void sort(Client &obj, Client &obj1);
-	int selectFiltrCriteria();
-	void edit(int choice);
-	void filtr(int choice,int a, int minAge, int maxAge);
-	int selectEditCriteria();
+	virtual void sort(Client &obj, Client &obj1);
+	virtual int selectFiltrCriteria();
+	virtual void edit(int choice);
+	virtual void filtr(int choice,int a, int minAge, int maxAge);
+	virtual int selectEditCriteria();
 	Client() {
 		/*this->street = nullptr;*/
 		this->houseNumber = NULL;
@@ -92,12 +82,27 @@ public:
 	void getMainClientInfo();
 	//void save(Client &obj);
 	//void download(Client &obj);
-	void print();
-	void sort(bool a);
-	int selectSearchCriteria();
-	void search(int i, char *input);
+	virtual void print();
+	virtual void sort(bool a);
+	virtual int selectSearchCriteria();
+	virtual void search(int i, char *input);
 };
-
+class Order :public Client, public Product {
+protected:
+	int clientCode;
+	int DeliveryCost;
+public:
+	Order() {
+		this->clientCode = NULL;
+		this->DeliveryCost = NULL;
+	}
+	void set(Client &client, Product &product);
+	void print();
+	void filtr(int choice, int a, int minAge, int maxAge);
+	int selectSearchCriteria();
+	int selectFiltrCriteria();
+	void search(int choice, char *input);
+};
 class Admin {
 protected:
 	char *password;
