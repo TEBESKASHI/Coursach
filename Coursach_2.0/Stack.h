@@ -1,63 +1,63 @@
-template<typename H>
+template <typename H>
 class Stack {
 public:
-	Stack();
-	~Stack();
+	Stack() {
+		size = 0;
+		top = nullptr;
+	};
+	~Stack() { clearStack(); };
 	void push(H data);
+	void clearStack();
 	void pop();
 	void show();
 	void downloadInfo(H data, char *path);
 	void save(char *path);
 	int compare(char *log, char *pas);
-	void clearList();
 private:
 	template<typename H>
 	class NodeS {
 	public:
 		NodeS * pNext;
 		H data;
-		NodeS(H data = H(),NodeS *pNext = NULL) {
+		NodeS(H data = H(), NodeS *pNext = nullptr) {
 			this->data = data;
 			this->pNext = pNext;
 		}
 	};
+	int size; //количество элементов в стеке 
 	NodeS<H> *top;
 };
+
+
+
+
+template <typename H>
+void Stack<H>::push(H data) {
+	if (top == nullptr) {
+		top = new NodeS<H>(data);
+	}
+	else {
+		NodeS<H> *p = new NodeS<H>(data, top);
+		top = p;
+	}
+	size++;
+}
+
+
 template<typename H>
-Stack<H>::Stack() {
-	top = NULL;
+void Stack<H>::pop() {
+	NodeS<H> *temp = top;
+	top = top->pNext;
+	delete temp;
+	size--;
 }
 
 template<typename H>
-void Stack<H>::clearList() {
-	NodeS<H> *p;
-	while (top != NULL)
-	{
-		p = top;
-		top = top->pNext;
-		delete p;
+void Stack<H>::clearStack() {
+	while (size) {
+		pop();
 	}
-}
-template<typename H>
-Stack<H>::~Stack() {
-	NodeS<H> *p;
-	while (top != NULL)
-	{
-		p = top;
-		top = top->pNext;
-		delete p;
-	}
-}
-template<typename H>
-void Stack<H>::push(H data) {
-	NodeS<H> *cur = new NodeS<H>(data);
-	top = cur;
-}
-template<typename H>
-void Stack<H>::pop() {
-	NodeS<H> *p = top->pNext;
-	delete top;
-	top = p;
+
 }
 template<typename H>
 void Stack<H>::show() {
@@ -76,7 +76,7 @@ void Stack<H>::downloadInfo(H data, char *path) {
 	}
 	else {
 		cout << "File is open" << endl;
-		clearList();
+		clearStack();
 		while (fin.read((char*)&data, sizeof(H))) {
 			push(data);
 		}
@@ -104,9 +104,12 @@ int Stack<H>::compare(char *log,char *pas) {
 	int i=0;
 	{
 		NodeS<H> *p = top;
-		while (p != NULL || i==0)
+		while (p != NULL)
 		{
 			i=p->data.compare(log,pas);
+			if (i != NULL) {
+				break;
+			}
 			p = p->pNext;
 		}
 	}

@@ -249,6 +249,8 @@ void Client::sort(Client &obj,Client &obj1) {
 				std::swap(obj.flat, obj1.flat);
 	}
 }
+void Client::pokupka() {
+}
 
 //void Client::save(Client &obj) {
 //	ofstream fout;

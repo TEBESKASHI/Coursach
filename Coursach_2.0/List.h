@@ -53,7 +53,8 @@ List<T>::~List() {
 template<typename T>
 void List<T>::addLastElement(T data) {
 	if (first == nullptr) {
-		first = new Node<T>(data);
+		first = new Node<T>(data, first);
+		size++;
 	}
 	else {
 		Node<T> *current = this->first;
@@ -175,9 +176,16 @@ T & List<T>::operator[](const int index) {
 template<typename T>
 void List<T>::deleteFirstElement() {
 	Node<T> *temp = first;
-	first = first->pNext;
-	delete temp;
-	size--;
+	if (temp->pNext != NULL) {
+		first = first->pNext;
+		delete temp;
+		size--;
+	}
+	else {
+		delete temp;
+		first = NULL;
+		size = 0;
+	}
 }
 
 //полная очистка списка
@@ -234,6 +242,7 @@ void List<T>::deleteElement(int index) {
 		}
 		Node<T> *toDelete = prevElem->pNext;
 		prevElem->pNext = toDelete->pNext;
+		toDelete->data.print();
 		delete toDelete;
 		size--;
 	}

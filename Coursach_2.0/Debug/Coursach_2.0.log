@@ -1,11 +1,7 @@
 ﻿  main.cpp
+  SourceOrder.cpp
   Создание кода...
-  Компиляция...
+  Пропуск... (изменения не обнаружены)
   sourceClient.cpp
   Admin.cpp
-d:\kursach\coursach2.0_oop\coursach_2.0\coursach_2.0\admin.cpp(36): warning C4018: <: несоответствие типов со знаком и без знака
-d:\kursach\coursach2.0_oop\coursach_2.0\coursach_2.0\admin.cpp(41): warning C4018: <: несоответствие типов со знаком и без знака
-d:\kursach\coursach2.0_oop\coursach_2.0\coursach_2.0\admin.cpp(140): warning C4018: <: несоответствие типов со знаком и без знака
-d:\kursach\coursach2.0_oop\coursach_2.0\coursach_2.0\admin.cpp(145): warning C4018: <: несоответствие типов со знаком и без знака
-  Создание кода...
   Coursach_2.0.vcxproj -> D:\kursach\Coursach2.0_oop\Coursach_2.0\Debug\Coursach_2.0.exe

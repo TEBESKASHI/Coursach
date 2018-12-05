@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <ctype.h> 
 #include <locale.h>
+#define N 10
 using namespace std;
 class Person {
 protected:
@@ -40,40 +41,42 @@ public:
 
 //класс заказов
 //заказ будет инкапсулирвоан в клиента?????
-
+class Order {
+protected:
+	char orderName[30];
+	int orderCode;
+	int clientCode;
+	int OrderCost;
+	int DeliveryCost;
+	//int dateOfOrder;
+public:
+	Order() {
+		this->orderCode = NULL;
+		this->clientCode = NULL;
+		this->OrderCost = NULL;
+		this->DeliveryCost = NULL;
+	}
+	void add();
+	void print();
+	void setOrderInf();
+	void getOrderInf();
+	int selectSearchCriteria();
+	void search(int choice, char *input);
+	int selectEditCriteria();
+	void edit(int choice);
+	/*void AddClientOrder();*/
+};
 //класс Клиент
 class Client :public Person{
 protected:
-	class Order {
-	protected:
-		char **orderName;
-		int *orderCode;
-		int *clientCode;
-		int *OrderCost;
-		int *DeliveryCost;
-		//int dateOfOrder;
-	public:
-		Order() {
-			this->orderName = nullptr;
-			this->orderCode = NULL;
-			this->clientCode = NULL;
-			this->OrderCost = NULL;
-			this->DeliveryCost = NULL;
-		}
-		~Order() {
-			delete orderName;
-		}
-		void setOrderInf();
-		void getOrderInf();
-		/*void AddClientOrder();*/
-	};
+	List<Order>order;
 	char street[20];
 	int houseNumber;
 	int flat;
 	char key[20];
 	int houseNumberFind;
-
 public:
+	void pokupka();
 	void sort(Client &obj, Client &obj1);
 	int selectFiltrCriteria();
 	void edit(int choice);
