@@ -11,6 +11,10 @@ public:
 	void deleteElement(int index);
 	void deleteLastElement();
 	void clearList();
+	void saveA(char *path);
+	void encryption();
+	void downloadInfoA(T data, char *path);
+	void decrypt();
 	int getSize() {return size;}
 	//для перехода по добавленным элементам
 	//index- номер возвращаемого элемента
@@ -22,6 +26,9 @@ public:
 	void search();
 	void edit();
 	void filtr();
+	void profit();
+	void check();
+	int compare(char *log, char *pas);
 	T perebor() {
 		Node<T> *p = first;
 		print();
@@ -35,6 +42,28 @@ public:
 			cout << "Нет такого номера, повторите ввод: ";
 				cin >> number;
 				number--;
+			system("cls");
+		}
+		while (a != number) {
+			p = p->pNext;
+			a++;
+		}
+		return p->data;
+	}
+	T perebor(int *delelem) {
+		Node<T> *p = first;
+		print();
+		int number;
+		int a = 0;
+		int k = getSize();
+		cin >> number;
+		(*delelem) = number;
+		number--;
+		cout << endl;
+		while (number >= k) {
+			cout << "Нет такого номера, повторите ввод: ";
+			cin >> number;
+			number--;
 			system("cls");
 		}
 		while (a != number) {
@@ -57,7 +86,277 @@ private:
 	int size; //количество элементов в односвязном списке
 	Node<T> *first;
 };
+template<typename T>
+int List<T>::compare(char *log, char *pas) {
+	int i = 0;
+	{
+		Node<T> *p = first;
+		while (p != NULL)
+		{
+			i = p->data.compare(log, pas);
+			if (i != NULL) {
+				break;
+			}
+			p = p->pNext;
+		}
+	}
+	return i;
+}
+template<typename T>
+void List<T>::downloadInfoA(T data, char *path) {
+	decrypt();
+	ifstream fin;
+	fin.open(path);
+	if (!fin.is_open()) {
+		cout << "Openning Error" << endl;
+	}
+	else {
+		clearList();
+		while (fin.read((char*)&data, sizeof(T))) {
+			addLastElement(data);
+		}
+	}
+	fin.close();
+}
 
+//сохранение в файл
+template<typename T>
+void List<T>::saveA(char *path) {
+	ofstream fout;
+	Node<T> *p = first;
+	fout.open(path, ios_base::out | ios_base::trunc);
+	if (!fout.is_open()) {
+		cout << "Openning Error" << endl;
+	}
+	else {
+		while (p != NULL) {
+			fout.write((char*)&p->data, sizeof(T));
+			p = p->pNext;
+		}
+	}
+	fout.close();
+	encryption();
+}
+template<typename T>
+void List<T>::encryption() {
+	string result = ""; //Строка - результат
+	string key = "key"; //Строка - ключ 
+	string key_on_s = "";
+	bool flag;
+	int x = 0, y = 0; //Координаты нового символа из таблицы Виженера
+	int registr = 0; //Регистр символа
+	char dublicat; //Дубликат прописной буквы
+				   //Формирование таблицы Виженера на алфавите латиницы
+	int shift = 0;
+	char **tabula_recta = new char *[26]; //Таблица Виженера
+	for (int i = 0; i < 26; i++)
+		tabula_recta[i] = new char[26];
+	string alfabet = "abcdefghijklmnopqrstuvwxyz"; //Алфавит латиницы
+												   //Формирование таблицы
+	for (int i = 0; i < 26; i++)
+		for (int j = 0; j < 26; j++)
+		{
+			shift = j + i;
+			if (shift >= 26) shift = shift % 26;
+			tabula_recta[i][j] = alfabet[shift];
+		}
+	setlocale(LC_ALL, "Russian");//Чтение файла
+	string s;
+	ifstream in("Admin.txt");
+	while (in) {
+		std::getline(in, s);
+	}
+	in.close();
+	for (int i = 0; i < s.length(); i++)
+	{
+		key_on_s += key[i % key.length()];
+	}
+	//Шифрование при помощи таблицы
+	for (int i = 0; i < s.length(); i++)
+	{
+		//Если нешифруемый символ
+		if (((int)(s[i]) < 65) || ((int)(s[i]) > 122))
+			result += s[i];
+		else
+		{
+			//Поиск в первом столбце строки, начинающейся с символа ключа
+			int l = 0;
+			flag = false;
+			//Пока не найден символ
+			while ((l < 26) && (flag == false))
+			{
+				//Если символ найден
+				if (key_on_s[i] == tabula_recta[l][0])
+				{
+					//Запоминаем в х номер строки
+					x = l;
+					flag = true;
+				}
+				l++;
+			}
+			//Уменьшаем временно регистр прописной буквы
+			if (((int)(s[i]) <= 90) && ((int)(s[i]) >= 65))
+			{
+				dublicat = (char)((int)(s[i]) + 32);
+				registr = 1;
+			}
+			else
+			{
+				registr = 0;
+				dublicat = s[i];
+			}
+			l = 0;
+			flag = false;
+			//Пока не найден столбец в первой строке с символом строки
+			while ((l < 26) && (flag == false))
+			{
+				if (dublicat == tabula_recta[0][l])
+				{
+					//Запоминаем номер столбца
+					y = l;
+					flag = true;
+				}
+				l++;
+			}
+			//Увеличиваем регистр буквы до прописной
+			if (registr == 1)
+			{
+				//Изменяем символ на первоначальный регистр
+				dublicat = char((int)(tabula_recta[x][y]) - 32);
+				result += dublicat;
+			}
+			else
+				result += tabula_recta[x][y];
+		}
+	}
+	ofstream fout;
+	fout.open("Admin.txt", ios_base::out | ios_base::trunc);
+	fout << result;
+	fout.close();
+}
+template<typename T>
+void List<T>::decrypt()
+{
+	string result = ""; //Строка - результат
+	string key = "key"; //Строка - ключ 
+	string key_on_s = "";
+	bool flag;
+	int x = 0, y = 0; //Координаты нового символа из таблицы Виженера
+	int registr = 0; //Регистр символа
+	char dublicat; //Дубликат прописной буквы
+				   //Формирование таблицы Виженера на алфавите латиницы
+	int shift = 0;
+	char **tabula_recta = new char *[26]; //Таблица Виженера
+	for (int i = 0; i < 26; i++)
+		tabula_recta[i] = new char[26];
+	string alfabet = "abcdefghijklmnopqrstuvwxyz"; //Алфавит латиницы
+												   //Формирование таблицы
+	for (int i = 0; i < 26; i++)
+		for (int j = 0; j < 26; j++)
+		{
+			shift = j + i;
+			if (shift >= 26) shift = shift % 26;
+			tabula_recta[i][j] = alfabet[shift];
+		}
+	setlocale(LC_ALL, "Russian");
+	string s;
+	ifstream in("Admin.txt");
+	getline(in, s);
+	in.close();
+	//Формирование строки, длиной дешифруемой, состоящей из повторений ключа
+	for (int i = 0; i < s.length(); i++)
+	{
+		key_on_s += key[i % key.length()];
+	}
+	//Дешифрование при помощи таблицы
+	for (int i = 0; i < s.length(); i++)
+	{
+		//Если недешифруемый символ
+		if (((int)(s[i]) < 65) || ((int)(s[i]) > 122))
+			result += s[i];
+		else
+		{
+			//Поиск в первом столбце строки, начинающейся с символа ключа
+			int l = 0;
+			flag = false;
+			//Пока не найден символ
+			while ((l < 26) && (flag == false))
+			{
+				//Если символ найден
+				if (key_on_s[i] == tabula_recta[l][0])
+				{
+					//Запоминаем в х номер строки
+					x = l;
+					flag = true;
+				}
+				l++;
+			}
+			//Уменьшаем временно регистр прописной буквы
+			if (((int)(s[i]) <= 90) && ((int)(s[i]) >= 65))
+			{
+				dublicat = (char)((int)(s[i]) + 32);
+				registr = 1;
+			}
+			else
+			{
+				registr = 0;
+				dublicat = s[i];
+			}
+			l = 0;
+			flag = false;
+			//Пока не найден столбец в x строке с символом строки
+			while ((l < 26) && (flag == false))
+			{
+				if (dublicat == tabula_recta[x][l])
+				{
+					//Запоминаем номер столбца
+					y = l;
+					flag = true;
+				}
+				l++;
+			}
+			//Увеличиваем регистр буквы до прописной
+			if (registr == 1)
+			{
+				//Изменяем символ на первоначальный регистр
+				dublicat = char((int)(tabula_recta[0][y]) - 32);
+				result += dublicat;
+			}
+			else
+				result += tabula_recta[0][y];
+		}
+	}
+	ofstream fout;
+	fout.open("Admin.txt", ios_base::out | ios_base::trunc);
+	fout << result;
+}
+template<typename T>
+void List<T>::check() {
+	Node<T> *p = first;
+	time_t a = 0;
+	int h = 1;
+	while (p != NULL)
+	{
+		a=p->data.checktime();
+		if (a != 0) {
+			p->data.printC(a);
+			system("cls");
+		}
+		p = p->pNext;
+		h++;
+	}
+}
+template<typename T>
+void List<T>::profit() {
+		Node<T> *p = first;
+		int profit=0;
+		while (p != NULL)
+		{
+			profit+=p->data.profit();
+			p = p->pNext;
+		}
+		p->data.profit(profit);
+	}
 
 template<typename T>
 List<T>::List() {
@@ -253,6 +552,13 @@ void List<T>::deleteElement(int index) {
 		deleteFirstElement();
 	}
 	else {
+		int i = getSize();
+		i--;
+		if (i < index) {
+			system("cls");
+			cout << "Невозможно удалить то, чего нет" << endl;
+			return;
+		}
 		Node<T> *prevElem = this->first;
 		//находим предшествующий и делаем указатель на удаляемый эл.
 		for (int i = 1; i < index - 1; i++) {
@@ -281,7 +587,6 @@ void List<T>::downloadInfo(T data,char *path) {
 		cout << "Openning Error" << endl;
 	}
 	else {
-		cout << "File is open" << endl;
 		clearList();
 		while (fin.read((char*)&data, sizeof(T))) {
 			addLastElement(data);
@@ -300,7 +605,6 @@ void List<T>::save(char *path) {
 		cout << "Openning Error" << endl;
 	}
 	else {
-		cout << "File is open" << endl;
 		while (p != NULL) {
 			fout.write((char*)&p->data, sizeof(T));
 			p = p->pNext;

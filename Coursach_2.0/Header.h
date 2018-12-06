@@ -10,7 +10,6 @@
 #include <sstream>
 #include <stdlib.h>
 #include "List.h"
-#include "Stack.h"
 #include <iomanip>
 #include <string.h>
 #include <math.h>
@@ -83,53 +82,73 @@ public:
 	//void save(Client &obj);
 	//void download(Client &obj);
 	virtual void print();
-	virtual void sort(bool a);
 	virtual int selectSearchCriteria();
 	virtual void search(int i, char *input);
+};
+class Courier :public Person {
+protected:
+	friend class Order;
+	int assigned;
+	float fuelcost;
+	int experience;
+public:
+	Courier() {
+		this->experience = NULL;
+		this->fuelcost = 1.21;
+		this->assigned = 0;
+	}
+	void setInfo();
+	void print();
+	int selectSearchCriteria();
+	void search(int choice, char *input);
+	int selectEditCriteria();
+	void edit(int choice);
 };
 class Order :public Client, public Product {
 protected:
 	int clientCode;
-	int DeliveryCost;
+	float DeliveryCost;
+	char timeF[30];
+	time_t seconds;
+	int status;
 public:
 	Order() {
+		this->status = NULL;
 		this->clientCode = NULL;
 		this->DeliveryCost = NULL;
 	}
+	int profit();
+	void profit(int profit);
 	void set(Client &client, Product &product);
 	void print();
 	void filtr(int choice, int a, int minAge, int maxAge);
 	int selectSearchCriteria();
 	int selectFiltrCriteria();
 	void search(int choice, char *input);
+	void addcour(Courier &cour);
+	time_t checktime();
+	void printC(time_t a);
+	Courier cor;
 };
 class Admin {
 protected:
-	char *password;
-	char *login;
+	char password[30];
+	char login[30];
 	int root;
 public:
-	void adminLogIn();
-	void encryption();
 	void set() {
 		cout << "¬ведите логин: ";
-		login = new char[30];
 		cin >> this->login;
 		cout << "¬ведите пароль: ";
-		password = new char[30];
 		cin >> this->password;
-		cout << "¬ведите права: ";
-		cin >> this->root;
 	}
 	void print() {
-		cout << this->login << endl;
-		cout << this->password << endl;
-		cout << this->root << endl;
+		if (strcmp(this->login, "admin") == 0 && strcmp(this->password, "admin") == 0) { return; }
+		cout<<"Ћогин пользовател€: "<<this->login << endl;
+		cout << "ѕароль пользовател€: " << this->password << endl;
 	}
 	Admin() {
 		this->root = 1;
-		this->login = NULL;
-		this->password = NULL;
 	}
 	int compare(char *log, char *pas) {
 		if (strcmp(this->login, log) == 0 && strcmp(this->password, pas) == 0) {

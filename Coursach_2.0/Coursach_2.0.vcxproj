@@ -68,13 +68,13 @@
   <ItemGroup>
     <ClInclude Include="Header.h" />
     <ClInclude Include="List.h" />
-    <ClInclude Include="Stack.h" />
     <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="sourceClient.cpp" />
+    <ClCompile Include="sourceCourier.cpp" />
     <ClCompile Include="sourceOrdercpp.cpp" />
     <ClCompile Include="sourceProduct.cpp" />
   </ItemGroup>

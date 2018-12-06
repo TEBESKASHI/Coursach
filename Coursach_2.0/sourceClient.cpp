@@ -208,25 +208,6 @@ void Client::search(int choice, char *input) {
 	}
 }
 
-void Client::sort(bool a) {
-	system("cls");
-	List<Client>client;
-	while (true) {
-		cout << "1.Сортировка по имени клиента" << endl;
-		char i;
-		cin >> i;
-		switch (i) {
-		case '1': {
-			if (a == true) {
-
-			}
-			else {
-			}
-		}
-		default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
-		}
-	}
-}
 void Client::getMainClientInfo() {
 	system("cls");
 	cout << "Имя клиента: " << this->name << endl;

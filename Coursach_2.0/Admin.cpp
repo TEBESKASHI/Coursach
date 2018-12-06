@@ -24,7 +24,7 @@ void encryption() {
 		}
 	setlocale(LC_ALL, "Russian");//Чтение файла
 	string s;
-	ifstream in("Test.txt");
+	ifstream in("Admin.txt");
 	while (in) {
 		std::getline(in, s);
 	}

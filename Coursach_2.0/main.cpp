@@ -1,8 +1,46 @@
 #include "Header.h"
-int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord) {
+void userMenu(List<Admin> &adm) {
+	Admin admin;
+	while (1) {
+		system("cls");
+		cout << "1.Добавить пользователя" << endl;
+		cout << "2.Список пользователей" << endl;
+		cout << "3.Удалить пользователя" << endl;
+		cout << "4.Выход" << endl;
+		int x;
+		cin >> x;
+		switch (x) {
+		case 1: {
+			system("cls");
+			admin.set();
+			adm.addLastElement(admin);
+			system("pause");
+			break; }
+		case 2: {
+			system("cls");
+			adm.print();
+			system("pause");
+			break; }
+		case 3: {
+			system("cls");
+			int del;
+			cout << "Введите номер пользователя, которого желаете удалить: ";
+			cin >> del;
+			del++;
+			cout << "Вы удалили:" << endl;
+			adm.deleteElement(del);
+			system("pause");
+			break; }
+		case 4:return; break;
+		default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
+		}
+	}
+}
+int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord,List<Courier> &cour) {
 	Client client;
 	Product product;
 	Order order;
+	Courier courier;
 	while (1) {
 		cout << "\t\t\t\t\tМеню заказов" << endl;
 		cout << "1.Оформить заказ" << endl;
@@ -11,13 +49,15 @@ int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord) {
 		cout << "4.Сортировать заказы" << endl;
 		cout << "5.Фильтрация заказов" << endl;
 		cout << "6.Поиск заказов" << endl;
+		cout << "7.Прибыль" << endl;
+		cout << "8.Назначить курьера на заказ" << endl;
 		cout << "0.Выход" << endl;
 		int x;
 		cin >> x;
 		switch (x) {
 		case 1: {
 			system("cls");
-			client = lst.perebor(); product = pro.perebor(); order.set(client, product); ord.addLastElement(order); break;
+			client = lst.perebor(); product = pro.perebor(); system("cls"); order.set(client, product); system("cls"); ord.addLastElement(order); break;
 		}
 		case 2: {
 			system("cls"); ord.print(); system("pause"); break;
@@ -43,13 +83,32 @@ int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord) {
 			system("pause");
 			break;
 		}
+		case 7: {
+			system("cls");
+			ord.profit();
+			system("pause");
+			break; }
+		case 8: {
+			system("cls"); 	
+			int del=0;
+			courier=cour.perebor();
+			order = ord.perebor(&del);
+			order.addcour(courier);
+			system("cls");
+			ord.deleteElement(del);
+			order.print();
+			ord.addLastElement(order);
+			system("pause");
+			break;
+		}
 		case 0:return 0; break;
 		}
 	}
 }
-int editMenu(List<Client> &lst, List<Product> &pro) {
+int editMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 	Client client;
 	Product product;
+	Courier courier;
 	while (1) {
 		cout << "1.Редактирование клиентов" << endl;
 		cout << "2.Редактирование товаров" << endl;
@@ -69,15 +128,20 @@ int editMenu(List<Client> &lst, List<Product> &pro) {
 			system("pause");
 			break;
 		}
-		case 3:break;
+		case 3: {
+			system("cls");
+			cour.edit();
+			system("pause");
+			break; }
 		case 4:return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
 }
-int searchMenu(List<Client> &lst, List<Product> &pro) {
+int searchMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 	Client client;
 	Product product;
+	Courier courier;
 	while (1) {
 		cout << "1.Поиск клиентов" << endl;
 		cout << "2.Поиск товаров" << endl;
@@ -97,15 +161,20 @@ int searchMenu(List<Client> &lst, List<Product> &pro) {
 			system("pause");
 			break;
 		}
-		case 3:break;
+		case 3: {
+			system("cls");
+			cour.search();
+			system("pause");
+			break; }
 		case 4:return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
 }
-int delMenu(List<Client> &lst, List<Product> &pro) {
+int delMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 	Client client;
 	Product product;
+	Courier courier;
 	while (1) {
 		cout << "1.Удаление клиентов" << endl;
 		cout << "2.Удаление товаров" << endl;
@@ -131,19 +200,27 @@ int delMenu(List<Client> &lst, List<Product> &pro) {
 			pro.deleteElement(del); system("pause");
 			break;
 		}
-		case 3:break;
+		case 3: {
+			system("cls");
+			int del;
+			cout << "Введите номер товара, который желаете удалить: ";
+			cin >> del;
+			cout << "Вы удалили:" << endl;
+			cour.deleteElement(del); system("pause");
+			break; }
 		case 4:return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
 }
-int printMenu(List<Client> &lst, List<Product> &pro) {
+int printMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 	Client client;
 	Product product;
+	Courier courier;
 	while (1) {
 		cout << "1.Просмотр клиентов" << endl;
 		cout << "2.Просмотр товаров" << endl;
-		cout << "3.Просмоттр курьеров" << endl;
+		cout << "3.Просмотр курьеров" << endl;
 		cout << "4.Выход" << endl;
 		int x;
 		cin >> x;
@@ -157,15 +234,20 @@ int printMenu(List<Client> &lst, List<Product> &pro) {
 			system("cls"); pro.print(); system("pause");
 			break;
 		}
-		case 3:break;
+		case 3: {
+			system("cls");
+			cour.print();
+			system("pause");
+			break; }
 		case 4:return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
 }
-int addMenu(List<Client> &lst,List<Product> &pro) {
+int addMenu(List<Client> &lst,List<Product> &pro,List<Courier> &cour) {
 	Client client;
 	Product product;
+	Courier courier;
 	while (1) {
 		cout << "1.Добавление клиента" << endl;
 		cout << "2.Добавление товара" << endl;
@@ -187,19 +269,31 @@ int addMenu(List<Client> &lst,List<Product> &pro) {
 			system("pause");
 			break;
 		}
-		case 3:break;
+		case 3: {
+			system("cls");
+			courier.setInfo();
+			cour.addLastElement(courier);
+			courier.print();
+			system("pause");
+			break; }
 		case 4:return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
 }
-int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
+int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord,List<Courier> &cour,List<Admin> &adm) {
 	int a = 0;
 	Client client;
 	Product product;
 	Order order;
+	Courier courier;
+	Admin admin;
 	int x;
 	while (1) {
+		int i=ord.getSize();
+		if (i != 0) {
+			ord.check();
+		}
 		cout << "1.Добавление" << endl;
 		cout << "2.Удаление" << endl;
 		cout << "3.Фильтрация" << endl;
@@ -209,17 +303,18 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 		cout << "7.Редактирование" << endl;
 		cout << "8.Сортировка" << endl;
 		cout << "9.Оформить заказ" << endl;
+		cout << "10.Управление пользователями" << endl;
 		cout << "0.Выход" << endl;
 		cin >> x;
 		switch (x) {
 		case 1:
 		{
-			addMenu(lst,pro);
+			addMenu(lst,pro,cour);
 			break;
 		}
 		case 2:
 		{
-			delMenu(lst,pro);
+			delMenu(lst,pro,cour);
 			break;
 		}
 		case 3: {
@@ -228,7 +323,7 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 		}
 		case 4:
 		{
-			printMenu(lst,pro);
+			printMenu(lst,pro,cour);
 			break;
 		}
 		case 5:
@@ -237,14 +332,16 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 			lst.save("ClientDatabase.txt");
 			pro.save("ProductDatabase.txt");
 			ord.save("OrderDatabase.txt");
+			cour.save("CourierDatabase.txt");
+			adm.saveA("Admin.txt");
 			break;
 		}
 		case 6:
 		{
-			searchMenu(lst,pro);
+			searchMenu(lst,pro,cour);
 			break;
 		}
-		case 9: {orderMenu(lst,pro,ord); break; }
+		case 9: {orderMenu(lst,pro,ord,cour); break; }
 		case 0:
 		{
 			if (a == 0) {
@@ -259,10 +356,12 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 						lst.save("ClientDatabase.txt");
 						pro.save("ProductDatabase.txt");
 						ord.save("OrderDatabase.txt");
+						cour.save("CourierDatabase.txt");
+						adm.saveA("Admin.txt");
 						return 0;
 						break;
 					}
-					case 2:return 0; break;
+					case 2:adm.saveA("Admin.txt"); return 0; break;
 					default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
 					}
 				}
@@ -273,7 +372,8 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 		case 8:
 			lst.sort();
 			break;
-		case 7:editMenu(lst,pro); break;
+		case 7:editMenu(lst,pro,cour); break;
+		case 10:userMenu(adm); break;
 		default:
 		{
 			cout << "Выберите существующих пункт меню" << endl;
@@ -285,25 +385,59 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord) {
 	system("pause");
 	return 0;
 }
+void setcur(int x, int y)//установка курсора на позицию  x y 
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+};
+BOOL WINAPI CtrlHandler(DWORD fdwCtrlType) {
+	switch (fdwCtrlType)
+	{ 
+	case CTRL_CLOSE_EVENT:
+		Beep(600, 200);
+		system("cls");
+		string str="";
+		while (str.length()< 35) {
+			setcur(0, 0);
+			Sleep(70);
+			cout<<"\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t"<<str;
+			str += "||";
+		}
+		return TRUE;
+	}
+}
 int main() {
+	string str = "";
+	while (str.length()< 35) {
+		setcur(0, 0);
+		Sleep(70);
+		cout << "\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t" << str;
+		str += "||";
+	}
+	system("cls");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+	srand(time(NULL));
+	system("color 0F");
 	Admin admin;
-	Stack<Admin>adm;
+	List<Admin>adm;
 	List<Client>lst;
 	List<Product>pro;
 	List<Order>ord;
+	List<Courier>cour;
+	Courier courier;
 	Client client;
 	Product product;
 	Order order;
+	SetConsoleCtrlHandler(CtrlHandler, TRUE);
+	cour.downloadInfo(courier,"CourierDatabase.txt");
 	ord.downloadInfo(order,"OrderDatabase.txt");
 	lst.downloadInfo(client, "ClientDatabase.txt");
 	pro.downloadInfo(product, "ProductDatabase.txt");
-	admin.set();
-	adm.push(admin);
-	adm.save("Admin.txt");
-	adm.downloadInfo(admin,"Admin.txt");
-	adm.show();
+	adm.downloadInfoA(admin,"Admin.txt");
+	adm.print();
 	while (1) {
 		cout << "1.Вход" << endl;
 		cout << "2.Выход" << endl;
@@ -325,11 +459,11 @@ int main() {
 			else if (i == 2) {
 				system("cls");
 				cout << "Ну привет, любимый" << endl;
-				menu(lst,pro,ord);
+				menu(lst,pro,ord, cour,adm);
 			}
 			else { system("cls"); cout << "Проверьте правильность ввода данных" << endl; }
 			break; }
-		case 2:exit(0); break;
+		case 2:adm.saveA("Admin.txt"); exit(0); break;
 		default:system("cls"); cout << "Нет такого  пункта меню"; break;
 		}
 	}
