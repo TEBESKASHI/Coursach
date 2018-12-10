@@ -3,7 +3,7 @@ List<Admin>adm;
 int onlyint() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	char number;
+	unsigned char number;
 	int all = 0;
 	int k = 0;
 	do

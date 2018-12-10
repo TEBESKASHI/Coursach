@@ -1,1 +1,16 @@
-﻿  Coursach_2.0.vcxproj -> C:\Users\User\Desktop\kursachdimi\Coursach\Debug\Coursach_2.0.exe
+﻿  main.cpp
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\header.h(85): warning C4305: =: усечение из "double" в "float"
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\main.cpp(513): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(174): warning C4018: <: несоответствие типов со знаком и без знака
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(145): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(140): note: выполняется компиляция ссылки на экземпляр шаблон функции "void List<Admin>::encryption(void)"
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(370): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\main.cpp(2): note: выполняется компиляция ссылки на экземпляр шаблон функции "List<Admin>::List(void)"
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\main.cpp(2): note: выполняется компиляция ссылки на экземпляр шаблон класс "List<Admin>"
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(179): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(273): warning C4018: <: несоответствие типов со знаком и без знака
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(245): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(109): note: выполняется компиляция ссылки на экземпляр шаблон функции "void List<Admin>::decrypt(void)"
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\list.h(278): warning C4018: <: несоответствие типов со знаком и без знака
+c:\users\user\desktop\kursachdimi\coursach\coursach_2.0\main.cpp(508): warning C4715: CtrlHandler: значение возвращается не при всех путях выполнения
+  Coursach_2.0.vcxproj -> C:\Users\User\Desktop\kursachdimi\Coursach\Debug\Coursach_2.0.exe
