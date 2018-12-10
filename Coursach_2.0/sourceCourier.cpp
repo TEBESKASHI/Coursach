@@ -1,4 +1,6 @@
 #include "Header.h"
+
+//добавление курьера
 void Courier::setInfo() {
 	cout << "Имя курьера: ";
 	cin >> this->name;
@@ -9,12 +11,26 @@ void Courier::setInfo() {
 	cout << "Стаж работы: ";
 	cin >> this->experience;
 }
-void Courier::print() {
-	cout << "\t\t\t\tИмя курьера: " << this->name << endl;
-	cout << "\t\t\t\tФамилия курьера: " << this->surname << endl;
-	cout << "\t\t\t\tВозраст курьера: " << this->age << endl;
-	cout << "\t\t\t\tСтаж работы: " << this->experience << endl;
+
+//вывод списка курьеров в табличном виде
+void Courier::print(int a) {
+	if (a == 1) {
+		cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+		cout << "|      Имя     |" << "    Фамилия   |" << " Возраст |" << " Стаж работы |" << endl;
+		cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+	}
+	if (a == 2) {
+		cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+		cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+	}
+	if (a == 3) {
+		cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+		cout << "````````````````" << "```````````````" << "``````````" << "``````````````" << endl;
+	}
+	
 }
+
+//выбор критерия для поиска курьера
 int Courier::selectSearchCriteria() {
 	int choice;
 	cout << "По чем будем искать, голум?" << endl;
@@ -25,39 +41,91 @@ int Courier::selectSearchCriteria() {
 	cin >> choice;
 	return choice;
 }
-void Courier::search(int choice, char *input) {
-	switch (choice) {
-	case 1:
-	{
-		if (strcmp(this->name, input) == 0) {
-			print();
-		}
-		break;
+
+//функция поиска курьера
+void Courier::search(int a,int choice, char *input) {
+	if (a == 1) {
+		cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+		cout << "|      Имя     |" << "    Фамилия   |" << " Возраст |" << " Стаж работы |" << endl;
+		cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
 	}
-	case 2: {
-		if (strcmp(this->surname, input) == 0) {
-			print();
+	if (a == 2) {
+		switch (choice) {
+		case 1:
+		{
+			if (strcmp(this->name, input) == 0) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+			}
+			break;
 		}
-		break;
-	}
-	case 3:
-	{
-		int inputInteger = atoi(input);
-		if (this->age == inputInteger) {
-			print();
+		case 2: {
+			if (strcmp(this->surname, input) == 0) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+			}
+			break;
 		}
-		break;
-	}
-	case 4:
-	{
-		int inputInteger = atoi(input);
-		if (this->experience == inputInteger) {
-			print();
+		case 3:
+		{
+			int inputInteger = atoi(input);
+			if (this->age == inputInteger) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+			}
+			break;
 		}
-		break;
+		case 4:
+		{
+			int inputInteger = atoi(input);
+			if (this->experience == inputInteger) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "|``````````````|" << "``````````````|" << "`````````|" << "`````````````|" << endl;
+			}
+			break;
+		}
+		}
 	}
+	if (a == 3) {
+		switch (choice) {
+		case 1:
+		{
+			if (strcmp(this->name, input) == 0) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "````````````````" << "```````````````" << "``````````" << "``````````````" << endl;
+			}
+			break;
+		}
+		case 2: {
+			if (strcmp(this->surname, input) == 0) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "````````````````" << "```````````````" << "``````````" << "``````````````" << endl;
+			}
+			break;
+		}
+		case 3:
+		{
+			int inputInteger = atoi(input);
+			if (this->age == inputInteger) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "````````````````" << "```````````````" << "``````````" << "``````````````" << endl;
+			}
+			break;
+		}
+		case 4:
+		{
+			int inputInteger = atoi(input);
+			if (this->experience == inputInteger) {
+				cout << "|" << setw(14) << this->name << "|" << setw(14) << this->surname << "|" << setw(9) << this->age << "|" << setw(13) << this->experience << "|" << endl;
+				cout << "````````````````" << "```````````````" << "``````````" << "``````````````" << endl;
+			}
+			break;
+		}
+		}
 	}
 }
+
+//выбор криетрия для редактирования
 int Courier::selectEditCriteria() {
 	int choice;
 	cout << "Что будем редактировать, простак?" << endl;
@@ -69,38 +137,48 @@ int Courier::selectEditCriteria() {
 	cin >> choice;
 	return choice;
 }
+
+//функция редактирования информации о курьере
 void Courier::edit(int choice) {
 	switch (choice) {
 	case 1:
 	{
 		cout << "Редактируемое имя: " << this->name << endl;
+		cout << "Новое имя: ";
 		cin >> this->name;
 		break;
 	}
 	case 2: {
 		cout << "Редактируемая фамилия: " << this->surname << endl;
+		cout << "Новая фамилия: ";
 		cin >> this->surname;
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемый возраст: " << this->age << endl;
+		cout << "Новый возраст: ";
 		cin >> this->age;
 		break;
 	}
 	case 4: {
 		cout << "Редактируемый стаж работы: " << this->experience << endl;
+		cout << "Новый стаж работы: ";
 		cin >> this->experience;
 		break;
 	}
 	case 5: {
 		cout << "Редактируемое имя: " << this->name << endl;
+		cout << "Новое имя: ";
 		cin >> this->name;
 		cout << "Редактируемая фамилия: " << this->surname << endl;
+		cout << "Новая фамилия: ";
 		cin >> this->surname;
 		cout << "Редактируемый возраст: " << this->age << endl;
+		cout << "Новый возраст: ";
 		cin >> this->age;
 		cout << "Редактируемый стаж работы: " << this->experience << endl;
+		cout << "Новый стаж работы: ";
 		cin >> this->experience;
 		break;
 	}

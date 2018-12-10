@@ -54,7 +54,10 @@ void Order::printC(time_t a) {
 	cin.get();
 	system("color 0F");
 }
-void Order::print() {
+void Order::print(int a) {
+	if (a == 1) {
+		cout << "___________________________________________________________________________________________________________________" << endl;
+	}
 	cout << "\t\t\t\tИмя: " << this->name << endl;
 	cout << "\t\t\t\tФамилия: " << this->surname << endl;
 	cout << "\t\t\t\tАдрес проживания: " << this->street << " " << this->houseNumber << ", " << this->flat << endl;
@@ -66,7 +69,8 @@ void Order::print() {
 	}
 	else if (cor.assigned == 1) {
 		cout << "\t\tКурьер: " << endl;
-		cor.print();
+		cor.print(1);
+		cor.print(3);
 		cout << "\t\t\t\tСтоимость доставки: " << this->DeliveryCost << endl;
 		if (this->status == 2) {
 			cout << "Статус: Ожидание доставки курьером" << endl;
@@ -127,27 +131,27 @@ void Order::filtr(int choice, int a, int minAge, int maxAge) {
 	}
 }
 //поиск по критериям
-void Order::search(int choice, char *input) {
+void Order::search(int a,int choice, char *input) {
 	system("cls");
 	switch (choice) {
 	case 1:
 	{
 		if (strcmp(this->name, input) == 0) {
-			print();
+			print(a);
 		}
 		break;
 	}
 	case 2:
 	{
 		if (strcmp(this->surname, input) == 0) {
-			print();
+			print(a);
 		}
 		break;
 	}
 	case 3:
 	{
 		if (strcmp(this->street, input) == 0) {
-			print();
+			print(a);
 		}
 		break;
 	}
@@ -155,7 +159,7 @@ void Order::search(int choice, char *input) {
 	{
 		int inputInteger = atoi(input);
 		if (this->ProductCost == inputInteger) {
-			print();
+			print(a);
 		}
 		break;
 	}

@@ -68,7 +68,6 @@
   <ItemGroup>
     <ClInclude Include="Header.h" />
     <ClInclude Include="List.h" />
-    <ClInclude Include="Stream.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Admin.cpp" />
@@ -77,6 +76,9 @@
     <ClCompile Include="sourceCourier.cpp" />
     <ClCompile Include="sourceOrdercpp.cpp" />
     <ClCompile Include="sourceProduct.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

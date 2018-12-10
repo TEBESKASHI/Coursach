@@ -1,11 +1,10 @@
 #pragma once
 #include <iostream>
 #include <clocale>
+#include <Windows.h>
 #include <fstream>
 #include <string>
 #include <ctime>
-#include <conio.h>
-#include <Windows.h>
 #include <conio.h>
 #include <sstream>
 #include <stdlib.h>
@@ -16,49 +15,39 @@
 #include <stdio.h>
 #include <ctype.h> 
 using namespace std;
+//класс человек
 class Person {
 protected:
 	char name[20];
 	char surname[20];
 	int age;
 public:
-	Person() {
-		//this->name = nullptr;
-		//this->surname = nullptr;
-		this->age = NULL;
-	}
-	~Person() {
-		//delete name;
-		//delete surname;
-	}
-
-	//virtual void setMainPrsnInfo() = 0;
-	//virtual void getMainPrsnInfo() = 0;
+	Person() {this->age = NULL;}
+	~Person() {}
 };
 
-//класс заказов
-//заказ будет инкапсулирвоан в клиента?????
+//класс продуктов(на складе)
 class Product {
 protected:
 	friend class Order;
 	char ProductName[30];
 	int ProductCode;
 	int ProductCost;
-	//int dateOfProduct;
 public:
 	Product() {
 		this->ProductCode = NULL;
 		this->ProductCost = NULL;
 	}
 	virtual void add();
-	virtual void print();
+	virtual void print(int a);
 	virtual int selectSearchCriteria();
-	virtual void search(int choice, char *input);
+	virtual void search(int a,int choice, char *input);
 	virtual int selectEditCriteria();
 	virtual void edit(int choice);
-	/*void AddClientProduct();*/
 };
-//класс Клиент
+
+
+//класс Клиент(наследуется от Person)
 class Client :public Person{
 protected:
 	friend class Order;
@@ -72,19 +61,18 @@ public:
 	virtual void filtr(int choice,int a, int minAge, int maxAge);
 	virtual int selectEditCriteria();
 	Client() {
-		/*this->street = nullptr;*/
 		this->houseNumber = NULL;
 		this->flat = NULL;
 	}
-	~Client() {/*delete street;*/}
+	~Client() {}
 	void setMainClientInfo();
 	void getMainClientInfo();
-	//void save(Client &obj);
-	//void download(Client &obj);
-	virtual void print();
+	virtual void print(int a);
 	virtual int selectSearchCriteria();
-	virtual void search(int i, char *input);
+	virtual void search(int a,int i, char *input);
 };
+
+//класс курьеров(наследуется от Person)
 class Courier :public Person {
 protected:
 	friend class Order;
@@ -94,16 +82,18 @@ protected:
 public:
 	Courier() {
 		this->experience = NULL;
-		this->fuelcost = 1.21;
+		this->fuelcost = 1.21; //постоянная цена на топливо(живем в лучшем из миров)
 		this->assigned = 0;
 	}
 	void setInfo();
-	void print();
+	void print(int a);
 	int selectSearchCriteria();
-	void search(int choice, char *input);
+	void search(int a,int choice, char *input);
 	int selectEditCriteria();
 	void edit(int choice);
 };
+
+//класс заказ
 class Order :public Client, public Product {
 protected:
 	int clientCode;
@@ -120,16 +110,18 @@ public:
 	int profit();
 	void profit(int profit);
 	void set(Client &client, Product &product);
-	void print();
+	void print(int a);
 	void filtr(int choice, int a, int minAge, int maxAge);
 	int selectSearchCriteria();
 	int selectFiltrCriteria();
-	void search(int choice, char *input);
+	void search(int a,int choice, char *input);
 	void addcour(Courier &cour);
 	time_t checktime();
 	void printC(time_t a);
 	Courier cor;
 };
+
+//класс для юзера и админа
 class Admin {
 protected:
 	char password[30];
@@ -142,7 +134,7 @@ public:
 		cout << "Введите пароль: ";
 		cin >> this->password;
 	}
-	void print() {
+	void print(int a) {
 		if (strcmp(this->login, "admin") == 0 && strcmp(this->password, "admin") == 0) { return; }
 		cout<<"Логин пользователя: "<<this->login << endl;
 		cout << "Пароль пользователя: " << this->password << endl;
@@ -158,3 +150,6 @@ public:
 		return 0;
 	}
 };
+char* onlystring(int N);
+int printMenu(List<Client> &lst, List<Product> &pro, List<Courier> &cour);
+int searchMenu(List<Client> &lst, List<Product> &pro, List<Courier> &cour);

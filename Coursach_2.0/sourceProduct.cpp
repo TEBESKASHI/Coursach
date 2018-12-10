@@ -1,4 +1,6 @@
 #include "Header.h"
+
+//добавить продукт в список
 void Product::add() {
 	cout << "Введите название товара: ";
 	cin >> this->ProductName;
@@ -7,11 +9,26 @@ void Product::add() {
 	cout << "Введите стоимость товара: ";
 	cin >> this->ProductCost;
 }
-void Product::print() {
-	cout << "Название товара: " << this->ProductName << endl;
-	cout << "Введите код товара: " << this->ProductCode << endl;
-	cout << "Стоимость товара: " << this->ProductCost << endl;
-}
+
+//вывод спсика продуктов в табличном виде
+void Product::print(int a) {
+	if (a == 1) {
+		cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+		cout << "| Название товара |" << " Код товара |" << " Стоимость |" << endl;
+		cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+	}
+	if (a == 2) {
+		cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+		cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+	}
+	if (a == 3) {
+		cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+		cout << "```````````````````" << "`````````````" << "````````````" << endl;
+	}
+	}
+
+
+//выбор критерия для поиска продукта
 int Product::selectSearchCriteria() {
 	int choice;
 	cout << "По чем будем искать, голум?" << endl;
@@ -21,32 +38,75 @@ int Product::selectSearchCriteria() {
 	cin >> choice;
 	return choice;
 }
-void Product::search(int choice, char *input) {
-	switch (choice) {
-	case 1:
-	{
-		if (strcmp(this->ProductName, input) == 0) {
-			print();
-		}
-		break;
+
+//функция поиска продукта
+void Product::search(int a,int choice, char *input) {
+	if (a == 1) {
+		cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+		cout << "| Название товара |" << " Код товара |" << " Стоимость |" << endl;
+		cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
 	}
-	case 2: {
-		int inputInteger = atoi(input);
-		if (this->ProductCode == inputInteger) {
-			print();
+	if (a == 2) {
+		switch (choice) {
+		case 1:
+		{
+			if (strcmp(this->ProductName, input) == 0) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+			}
+			break;
 		}
-		break;
-	}
-	case 3:
-	{
-		int inputInteger = atoi(input);
-		if (this->ProductCost == inputInteger) {
-			print();
+		case 2: {
+			int inputInteger = atoi(input);
+			if (this->ProductCode == inputInteger) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+			}
+			break;
 		}
-		break;
+		case 3:
+		{
+			int inputInteger = atoi(input);
+			if (this->ProductCost == inputInteger) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "|`````````````````|" << "````````````|" << "```````````|" << endl;
+			}
+			break;
+		}
+		}
 	}
+	if (a == 3) {
+		switch (choice) {
+		case 1:
+		{
+			if (strcmp(this->ProductName, input) == 0) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "```````````````````" << "`````````````" << "````````````" << endl;
+			}
+			break;
+		}
+		case 2: {
+			int inputInteger = atoi(input);
+			if (this->ProductCode == inputInteger) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "```````````````````" << "`````````````" << "````````````" << endl;
+			}
+			break;
+		}
+		case 3:
+		{
+			int inputInteger = atoi(input);
+			if (this->ProductCost == inputInteger) {
+				cout << "|" << setw(17) << this->ProductName << "|" << setw(12) << this->ProductCode << "|" << setw(11) << this->ProductCost << "|" << endl;
+				cout << "```````````````````" << "`````````````" << "````````````" << endl;
+			}
+			break;
+		}
+		}
 	}
 }
+
+//выбор критерия для редактирования
 int Product::selectEditCriteria() {
 	int choice;
 	cout << "Что будем редактировать, простак?" << endl;
@@ -57,31 +117,39 @@ int Product::selectEditCriteria() {
 	cin >> choice;
 	return choice;
 }
+
+//функция редактирования данных
 void Product::edit(int choice) {
 	switch (choice) {
 	case 1:
 	{
 		cout << "Редактируемый товар: " << this->ProductName << endl;
+		cout << "Новое название товара: ";
 		cin >> this->ProductName;
 		break;
 	}
 	case 2: {
 		cout << "Редактируемый код товара: " << this->ProductCode << endl;
+		cout << "Новый код товара: ";
 		cin >> this->ProductCode;
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемая цена товара: " << this->ProductCost << endl;
+		cout << "Новая цена товара: ";
 		cin >> this->ProductCost;
 		break;
 	}
 	case 4: {
 		cout << "Редактируемый товар: " << this->ProductName << endl;
+		cout << "Новое название товара: ";
 		cin >> this->ProductName;
 		cout << "Редактируемый код товара: " << this->ProductCode << endl;
+		cout << "Новый код товара: ";
 		cin >> this->ProductCode;
 		cout << "Редактируемая цена товара: " << this->ProductCost << endl;
+		cout << "Новая цена товара: ";
 		cin >> this->ProductCost;
 		break;
 	}

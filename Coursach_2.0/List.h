@@ -102,6 +102,8 @@ int List<T>::compare(char *log, char *pas) {
 	}
 	return i;
 }
+
+//загрукза из файла
 template<typename T>
 void List<T>::downloadInfoA(T data, char *path) {
 	decrypt();
@@ -137,6 +139,8 @@ void List<T>::saveA(char *path) {
 	fout.close();
 	encryption();
 }
+
+//шифрование
 template<typename T>
 void List<T>::encryption() {
 	string result = ""; //Строка - результат
@@ -234,6 +238,8 @@ void List<T>::encryption() {
 	fout << result;
 	fout.close();
 }
+
+//дешифровка
 template<typename T>
 void List<T>::decrypt()
 {
@@ -330,6 +336,8 @@ void List<T>::decrypt()
 	fout.open("Admin.txt", ios_base::out | ios_base::trunc);
 	fout << result;
 }
+
+
 template<typename T>
 void List<T>::check() {
 	Node<T> *p = first;
@@ -368,6 +376,8 @@ template<typename T>
 List<T>::~List() {
 	clearList();
 }
+
+//добавить в конец списка
 template<typename T>
 void List<T>::addLastElement(T data) {
 	if (first == nullptr) {
@@ -382,17 +392,21 @@ void List<T>::addLastElement(T data) {
 	}
 	size++;
 }
+
+//вывод на экран
 template<typename T>
 void List<T>::print() {
-	{
 		Node<T> *p = first;
-		while (p != NULL)
+		p->data.print(1);
+		while (p->pNext != NULL)
 		{
-			p->data.print();
+			p->data.print(2);
 			p = p->pNext;
 		}
+		p->data.print(3);
 	}
-}
+
+//сортировка
 template<typename T>
 void List<T>::sort() {
 	{
@@ -412,6 +426,8 @@ void List<T>::sort() {
 		else cout << "Нечего сортировать" << endl;
 	}
 }
+
+//фильтрация
 template<typename T>
 void List<T>::filtr() {
 	{
@@ -439,10 +455,13 @@ void List<T>::filtr() {
 			p->data.filtr(choice, 3, minAge, maxAge);
 	}
 }
+
+//редактирование
 template<typename T>
 void List<T>::edit() {
 	{
 		Node<T> *p = first;
+		/*p->data.print();*/
 		int choice=p->data.selectEditCriteria();
 		cout << "Кого хотите изменить?: ";
 		int number;
@@ -457,6 +476,8 @@ void List<T>::edit() {
 		p->data.edit(choice);
 	}
 }
+
+//поиск
 template<typename T>
 void List<T>::search() {
 	{
@@ -466,11 +487,13 @@ void List<T>::search() {
 		char input[30];
 		cout << "Введите данные для поиска: ";
 		cin >> input;
-		while (p != NULL)
+		p->data.search(1,choice,input);
+		while (p->pNext != NULL)
 		{
-			p->data.search(choice, input);
+			p->data.search(2,choice, input);
 			p = p->pNext;
 		}
+		p->data.search(3,choice,input);
 	}
 }
 //перегрузка [] для итераций
@@ -548,7 +571,8 @@ void List<T>::deleteElement(int index) {
 		cout << "Некорректный ввод" << endl;
 	}
 	else if (index == 0) {
-		first->data.print();
+		first->data.print(1);
+		first->data.print(3);
 		deleteFirstElement();
 	}
 	else {
@@ -566,7 +590,8 @@ void List<T>::deleteElement(int index) {
 		}
 		Node<T> *toDelete = prevElem->pNext;
 		prevElem->pNext = toDelete->pNext;
-		toDelete->data.print();
+		toDelete->data.print(1);
+		toDelete->data.print(3);
 		delete toDelete;
 		size--;
 	}
