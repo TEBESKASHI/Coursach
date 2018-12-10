@@ -3,11 +3,11 @@
 //добавить продукт в список
 void Product::add() {
 	cout << "Введите название товара: ";
-	cin >> this->ProductName;
+	strcpy(this->ProductName, onlystring(30));
 	cout << "Введите код товара: ";
-	cin >> this->ProductCode;
+	this->ProductCode = onlyint();
 	cout << "Введите стоимость товара: ";
-	cin >> this->ProductCost;
+	this->ProductCost = onlyint();
 }
 
 //вывод спсика продуктов в табличном виде
@@ -35,7 +35,7 @@ int Product::selectSearchCriteria() {
 	cout << "1.По названию товара" << endl;
 	cout << "2.По коду товара" << endl;
 	cout << "3.По стоимости товара" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -114,7 +114,7 @@ int Product::selectEditCriteria() {
 	cout << "2.Код товара" << endl;
 	cout << "3.Стоимость товара: "  << endl;
 	cout << "4.Вcе" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -125,32 +125,32 @@ void Product::edit(int choice) {
 	{
 		cout << "Редактируемый товар: " << this->ProductName << endl;
 		cout << "Новое название товара: ";
-		cin >> this->ProductName;
+		strcpy(this->ProductName, onlystring(30));
 		break;
 	}
 	case 2: {
 		cout << "Редактируемый код товара: " << this->ProductCode << endl;
 		cout << "Новый код товара: ";
-		cin >> this->ProductCode;
+		this->ProductCode = onlyint();
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемая цена товара: " << this->ProductCost << endl;
 		cout << "Новая цена товара: ";
-		cin >> this->ProductCost;
+		this->ProductCost = onlyint();
 		break;
 	}
 	case 4: {
 		cout << "Редактируемый товар: " << this->ProductName << endl;
 		cout << "Новое название товара: ";
-		cin >> this->ProductName;
+		strcpy(this->ProductName, onlystring(30));
 		cout << "Редактируемый код товара: " << this->ProductCode << endl;
 		cout << "Новый код товара: ";
-		cin >> this->ProductCode;
+		this->ProductCode = onlyint();
 		cout << "Редактируемая цена товара: " << this->ProductCost << endl;
 		cout << "Новая цена товара: ";
-		cin >> this->ProductCost;
+		this->ProductCost = onlyint();
 		break;
 	}
 	}

@@ -3,13 +3,13 @@
 //добавление курьера
 void Courier::setInfo() {
 	cout << "Имя курьера: ";
-	cin >> this->name;
+	strcpy(this->name, onlystring(20));
 	cout << "Фамилия курьера: ";
-	cin >> this->surname;
+	strcpy(this->surname, onlystring(20));
 	cout << "Возраст курьера: ";
-	cin >> this->age;
+	this->age = onlyint();
 	cout << "Стаж работы: ";
-	cin >> this->experience;
+	this->experience = onlyint();
 }
 
 //вывод списка курьеров в табличном виде
@@ -38,7 +38,7 @@ int Courier::selectSearchCriteria() {
 	cout << "2.По Фамилии" << endl;
 	cout << "3.По возрасту" << endl;
 	cout << "4.По стажу работы" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -134,7 +134,7 @@ int Courier::selectEditCriteria() {
 	cout << "3.Возраст: " << endl;
 	cout << "4.Стаж работы" << endl;
 	cout << "5.Все" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -145,41 +145,41 @@ void Courier::edit(int choice) {
 	{
 		cout << "Редактируемое имя: " << this->name << endl;
 		cout << "Новое имя: ";
-		cin >> this->name;
+		strcpy(this->name, onlystring(20));
 		break;
 	}
 	case 2: {
 		cout << "Редактируемая фамилия: " << this->surname << endl;
 		cout << "Новая фамилия: ";
-		cin >> this->surname;
+		strcpy(this->surname, onlystring(20));
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемый возраст: " << this->age << endl;
 		cout << "Новый возраст: ";
-		cin >> this->age;
+		this->age = onlyint();
 		break;
 	}
 	case 4: {
 		cout << "Редактируемый стаж работы: " << this->experience << endl;
 		cout << "Новый стаж работы: ";
-		cin >> this->experience;
+		this->experience = onlyint();
 		break;
 	}
 	case 5: {
 		cout << "Редактируемое имя: " << this->name << endl;
 		cout << "Новое имя: ";
-		cin >> this->name;
+		strcpy(this->name, onlystring(20));
 		cout << "Редактируемая фамилия: " << this->surname << endl;
 		cout << "Новая фамилия: ";
-		cin >> this->surname;
+		strcpy(this->surname, onlystring(20));
 		cout << "Редактируемый возраст: " << this->age << endl;
 		cout << "Новый возраст: ";
-		cin >> this->age;
+		this->age = onlyint();
 		cout << "Редактируемый стаж работы: " << this->experience << endl;
 		cout << "Новый стаж работы: ";
-		cin >> this->experience;
+		this->experience = onlyint();
 		break;
 	}
 	}

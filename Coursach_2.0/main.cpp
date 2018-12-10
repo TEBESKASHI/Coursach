@@ -1,6 +1,8 @@
 #include "Header.h"
 List<Admin>adm;
 int onlyint() {
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
 	char number;
 	int all = 0;
 	int k = 0;
@@ -19,12 +21,14 @@ int onlyint() {
 			all = (all - all % 10) / 10;
 		}
 		else if (number == '\n') { break; }
-	} while (k<15 && number != 13);
+	} while (k<8 && number != 13);
 	cout << endl;
 	return all;
 }
 char* onlystring(int N) {
-	char number;
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+	unsigned char number;
 	char *str = new char[N];
 	int k = 0;
 	do
@@ -82,7 +86,7 @@ void userMenu(List<Admin> &adm) {
 		cout << "3.Удалить пользователя" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -100,7 +104,7 @@ void userMenu(List<Admin> &adm) {
 			system("cls");
 			int del;
 			cout << "Введите номер пользователя, которого желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			del++;
 			cout << "Вы удалили:" << endl;
 			adm.deleteElement(del);
@@ -119,21 +123,39 @@ int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord,List<Couri
 	Courier courier;
 	while (1) {
 		cout << "\t\t\t\t\tМеню заказов" << endl;
-		cout << "1.Оформить заказ" << endl;
-		cout << "2.Список заказов" << endl;
-		cout << "3.Завершить заказ(досрочно)" << endl;
-		cout << "4.Сортировать заказы" << endl;
-		cout << "5.Фильтрация заказов" << endl;
-		cout << "6.Поиск заказов" << endl;
-		cout << "7.Прибыль(бизнес - функция)" << endl;
-		cout << "8.Назначить курьера на доставку заказа" << endl;
-		cout << "0.Назад" << endl;
+		if (lst.getSize() < 1 || pro.getSize() < 1 || cour.getSize()<1) {
+			HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hStdOut, FOREGROUND_RED | FOREGROUND_INTENSITY);
+			cout << "1.Оформить заказ" << endl;
+		}
+		else {
+			HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN | FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_INTENSITY);
+			cout << "1.Оформить заказ" << endl;
+		}
+		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN | FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_INTENSITY);
+			cout << "2.Список заказов" << endl;
+			cout << "3.Завершить заказ(досрочно)" << endl;
+			cout << "4.Сортировать заказы" << endl;
+			cout << "5.Фильтрация заказов" << endl;
+			cout << "6.Поиск заказов" << endl;
+			cout << "7.Прибыль(бизнес - функция)" << endl;
+			cout << "8.Назначить курьера на доставку заказа" << endl;
+			cout << "0.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
-			system("cls");
-			client = lst.perebor(); product = pro.perebor(); system("cls"); order.set(client, product); system("cls"); ord.addLastElement(order); break;
+			if (lst.getSize() < 1 || pro.getSize() < 1 || cour.getSize()<1) {
+				system("cls");
+				cout << "Вы не можете оформить заказ" << endl;
+				break;
+			}
+			else {
+				system("cls");
+				client = lst.perebor(); product = pro.perebor(); system("cls"); order.set(client, product); system("cls"); ord.addLastElement(order); break;
+			}
 		}
 		case 2: {
 			system("cls"); ord.print(); system("pause"); break;
@@ -141,7 +163,7 @@ int orderMenu(List<Client> &lst, List<Product> &pro, List<Order> &ord,List<Couri
 		case 3: {
 			system("cls"); 	int del;
 			cout << "Введите номер заказа, который желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			ord.deleteElement(del); system("pause");
 			break;
@@ -192,7 +214,7 @@ int editMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 		cout << "3.Редактирование курьеров" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -226,7 +248,7 @@ int searchMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 		cout << "3.Поиск курьеров" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -267,7 +289,7 @@ int delMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 			int del;
 			lst.print();
 			cout << "Введите номер клиента, которого желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			lst.deleteElement(del);
 			system("pause");
@@ -276,7 +298,7 @@ int delMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 			system("cls"); 	int del;
 			pro.print();
 			cout << "Введите номер товара, который желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			pro.deleteElement(del); system("pause");
 			break;
@@ -286,7 +308,7 @@ int delMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 			int del;
 			cour.print();
 			cout << "Введите номер товара, который желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			cour.deleteElement(del); system("pause");
 			break; }
@@ -306,7 +328,7 @@ int printMenu(List<Client> &lst, List<Product> &pro,List<Courier> &cour) {
 		cout << "3.Просмотр курьеров" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -338,7 +360,7 @@ int addMenu(List<Client> &lst,List<Product> &pro,List<Courier> &cour) {
 		cout << "3.Добавление курьера" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -391,7 +413,7 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord,List<Courier> &c
 		cout << "9.Оформление заказа" << endl;
 		cout << "10.Управление пользователями" << endl;
 		cout << "0.Выход" << endl;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1:
 		{
@@ -442,7 +464,7 @@ int menu(List<Client> &lst, List<Product> &pro,List<Order> &ord,List<Courier> &c
 					cout << "1.Да" << endl;
 					cout << "2.Нет" << endl;
 					int x;
-					cin >> x;
+					x = onlyint();
 					switch (x) {
 					case 1: {
 						lst.save("ClientDatabase.txt");
@@ -487,6 +509,7 @@ BOOL WINAPI CtrlHandler(DWORD fdwCtrlType) {
 int main() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
+	setlocale(LC_ALL, "Russian");
 	srand(time(NULL));
 	system("color 0F");
 	Admin admin;
@@ -510,15 +533,15 @@ int main() {
 		cout << "2.Выход" << endl<<endl;
 		cout << "Ваш выбор: ";
 		int i;
-			cin >> i;
+		i = onlyint();
 		switch (i) {
 		case 1: {
 			cout << "Введите логин: ";
 			char log[30];
-			cin >> log;
+			strcpy(log,onlystring(30));
 			cout << "Введите пароль: ";
 			char pas[30];
-			cin >> pas;
+			strcpy(pas, onlystring(30));
 			int i=adm.compare(log,pas); 
 			if (i == 1) {
 				system("cls");

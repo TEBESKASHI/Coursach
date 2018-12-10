@@ -35,12 +35,12 @@ public:
 		int number;
 		int a = 0;
 		int k = getSize();
-		cin >> number;
+		number = onlyint();
 		number--;
 		cout << endl;
-		while(number >= k) {
+		while(number >= k || number <0) {
 			cout << "Нет такого номера, повторите ввод: ";
-				cin >> number;
+				number=onlyint();
 				number--;
 			system("cls");
 		}
@@ -56,13 +56,13 @@ public:
 		int number;
 		int a = 0;
 		int k = getSize();
-		cin >> number;
+		number = onlyint();
 		(*delelem) = number;
 		number--;
 		cout << endl;
-		while (number >= k) {
+		while (number >= k || number<0) {
 			cout << "Нет такого номера, повторите ввод: ";
-			cin >> number;
+			number = onlyint();
 			number--;
 			system("cls");
 		}
@@ -397,6 +397,10 @@ void List<T>::addLastElement(T data) {
 template<typename T>
 void List<T>::print() {
 		Node<T> *p = first;
+		if (p == NULL) {
+			cout << "Ничего нету" << endl;
+			return;
+		}
 		p->data.print(1);
 		while (p->pNext != NULL)
 		{
@@ -437,9 +441,9 @@ void List<T>::filtr() {
 		int minAge;
 		int maxAge;
 		cout << "ОТ: ";
-		cin >> minAge;
+		minAge = onlyint();
 		cout << "До: ";
-		cin >> maxAge;
+		maxAge = onlyint();
 		if (minAge > maxAge) {
 			int temp;
 			temp = minAge;
@@ -466,8 +470,16 @@ void List<T>::edit() {
 		cout << "Кого хотите изменить?: ";
 		int number;
 		int h = 0;
-		cin >> number;
+		int k = getSize();
+		number = onlyint();
 		number--;
+		cout << endl;
+		while (number >= k || number <0) {
+			cout << "Нет такого номера, повторите ввод: ";
+			number = onlyint();
+			number--;
+			system("cls");
+		}
 		while (h!=number)
 		{
 			p = p->pNext;
@@ -486,7 +498,7 @@ void List<T>::search() {
 		choice = p->data.selectSearchCriteria();
 		char input[30];
 		cout << "Введите данные для поиска: ";
-		cin >> input;
+		strcpy(input,onlystring(30));
 		p->data.search(1,choice,input);
 		while (p->pNext != NULL)
 		{
@@ -568,7 +580,7 @@ template<typename T>
 void List<T>::deleteElement(int index) {
 	index--;
 	if (index < 0) {
-		cout << "Некорректный ввод" << endl;
+		cout << "Невозможно удалить то, чего нет" << endl;
 	}
 	else if (index == 0) {
 		first->data.print(1);

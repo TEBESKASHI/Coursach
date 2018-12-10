@@ -57,6 +57,7 @@ void Order::printC(time_t a) {
 void Order::print(int a) {
 	if (a == 1) {
 		cout << "___________________________________________________________________________________________________________________" << endl;
+		return;
 	}
 	cout << "\t\t\t\tИмя: " << this->name << endl;
 	cout << "\t\t\t\tФамилия: " << this->surname << endl;
@@ -95,7 +96,7 @@ int Order::selectSearchCriteria() {
 	cout << "2.По фамилии" << endl;
 	cout << "3.По названию улицы" << endl;
 	cout << "4.По стоимости товара " << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 int Order::selectFiltrCriteria() {
@@ -103,7 +104,7 @@ int Order::selectFiltrCriteria() {
 	system("cls");
 	cout << "Меню фильтрации" << endl;
 	cout << "1.Фильтрация по стоимости" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 void Order::filtr(int choice, int a, int minAge, int maxAge) {

@@ -3,17 +3,17 @@
 //получение информации о клиенте
 void Client::setMainClientInfo() {
 	cout << "Введите имя клиента: ";
-	cin >> this->name;
+	strcpy(this->name, onlystring(20));
 	cout << "Введите фамилию клиента: ";
-	cin >> this->surname;
+	strcpy(this->surname, onlystring(20));
 	cout << "Введите возраст клиента: ";
-	cin >> this->age;
+	this->age = onlyint();
 	cout << "Введите название улицы проживания клиента: ";
-	cin >> this->street;
+	strcpy(this->street, onlystring(20));
 	cout << "Введите номер дома клиента: ";
-	cin >> this->houseNumber;
+	this -> houseNumber = onlyint();
 	cout << "Введите номер квартиры клиента: ";
-	cin >> this->flat;
+	this->flat = onlyint();
 }
 
 //выбор критерия для поиска
@@ -26,7 +26,7 @@ int Client::selectSearchCriteria() {
 	cout << "4.По названию улицы" << endl;
 	cout << "5.По номеру дома" << endl;
 	cout << "6.По номеру квартиры" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -35,7 +35,7 @@ int Client::selectFiltrCriteria() {
 	int choice;
 	cout << "Меню фильтрации" << endl;
 	cout << "1.Фильтрация по возрасту" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -76,7 +76,7 @@ int Client::selectEditCriteria() {
 	cout << "5.Номер дома" << endl;
 	cout << "6.Номер квартиры" << endl;
 	cout << "7.Всё" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -87,63 +87,63 @@ void Client::edit(int choice) {
 	{
 		cout << "Редактируемое имя: " << this->name << endl;
 		cout << "Введите новое имя: ";
-		cin >> this->name;
+		strcpy(this->name, onlystring(20));
 		break;
 	}
 	case 2:
 	{
 		cout << "Редактируемая фамилия: " << this->surname << endl;
 		cout << "Введите новую фамилию: ";
-		cin >> this->surname;
+		strcpy(this->surname, onlystring(20));
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемый возраст: " << this->age << endl;
 		cout << "Введите новый возраст: ";
-		cin >> this->age;
+		this->age = onlyint();
 		break;
 	}
 	case 4:
 	{
 		cout << "Редактируемое название улицы: " << this->street << endl;
 		cout << "Введите новое название улицы: ";
-		cin >> this->street;
+		strcpy(this->street, onlystring(20));
 		break;
 	}
 	case 5:
 	{
 		cout << "Редактируемый номер дома: " << this->houseNumber << endl;
 		cout << "Введите новый номер дома: ";
-		cin >> this->houseNumber;
+		this->houseNumber = onlyint();
 		break;
 	}
 	case 6:
 	{
 		cout << "Редактируемый номер квартиры: " << this->flat << endl;
 		cout << "Введите новый номер квартиры: ";
-		cin >> this->flat;
+		this->flat = onlyint();
 		break;
 	}
 	case 7: {
 		cout << "Редактируемое имя: " << this->name << endl;
 		cout << "Введите новое имя: ";
-		cin >> this->name;
+		strcpy(this->name, onlystring(20));
 		cout << "Редактируемая фамилия: " << this->surname << endl;
 		cout << "Введите новую фамилию: ";
-		cin >> this->surname;
+		strcpy(this->surname, onlystring(20));
 		cout << "Редактируемый возраст: " << this->age << endl;
 		cout << "Введите новый возраст: ";
-		cin >> this->age;
+		this->age = onlyint();
 		cout << "Редактируемое название улицы: " << this->street << endl;
 		cout << "Введите новое название улицы: ";
-		cin >> this->street;
+		strcpy(this->street, onlystring(20));
 		cout << "Редактируемый номер дома: " << this->houseNumber << endl;
 		cout << "Введите новый номер дома: ";
-		cin >> this->houseNumber;
+		this->houseNumber = onlyint();
 		cout << "Редактируемый номер квартиры: " << this->flat << endl;
 		cout << "Введите новый номер квартиры: ";
-		cin >> this->flat; break;
+		this->flat = onlyint(); break;
 	}
 	}
 }

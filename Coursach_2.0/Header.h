@@ -150,6 +150,7 @@ public:
 		return 0;
 	}
 };
+int onlyint();
 char* onlystring(int N);
 int printMenu(List<Client> &lst, List<Product> &pro, List<Courier> &cour);
 int searchMenu(List<Client> &lst, List<Product> &pro, List<Courier> &cour);
