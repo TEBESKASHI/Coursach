@@ -504,17 +504,12 @@ int main() {
 	lst.downloadInfo(client, "ClientDatabase.txt");
 	pro.downloadInfo(product, "ProductDatabase.txt");
 	adm.downloadInfoA(admin,"Admin.txt");
-	adm.print();
 	while (1) {
 		cout << "\tДобро пожаловать в программу" << endl;
 		cout << "1.Вход" << endl;
 		cout << "2.Выход" << endl<<endl;
 		cout << "Ваш выбор: ";
 		int i;
-		char a[5];
-		cout << "ВВод: ";
-		strcpy(a,onlystring(5));
-		cout << "Вывод: " << a << endl;
 			cin >> i;
 		switch (i) {
 		case 1: {
