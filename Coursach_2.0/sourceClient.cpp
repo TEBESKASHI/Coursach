@@ -270,7 +270,15 @@ void Client::search(int a,int choice, char *input) {
 			}
 		}
 }
-
+bool ages(int left, int right) {
+	return left > right;
+}
+bool surnames(char left[30], char right[30]) {
+	return strcmp(left, right)>0;
+}
+bool names(char left[30], char right[30]) {
+	return strcmp(left, right) > 0;
+}
 //get для клиента
 void Client::getMainClientInfo() {
 	system("cls");
@@ -281,19 +289,48 @@ void Client::getMainClientInfo() {
 	cout << "Номер дома клиента: " << this->houseNumber << endl;
 	cout << "Номер квартиры клиента: " << this->flat << endl;
 }
-
-//функция сортировки клиентов
-bool names(char left[30], char right[30]) {
-	return strcmp(left, right) > 0;
+int Client::SelectSortCriteria() {
+	cout << "1.Сортировать по имени клиента" << endl;
+	cout << "2.Сортировать по фамилии клиента" << endl;
+	cout << "3.Сортировать по возрасту" << endl;
+	int choice;
+	choice = onlyint();
+	return choice;
 }
-void Client::sort(Client &obj,Client &obj1) {
-			if (names(obj.name, obj1.name)) {
-				std::swap(obj.name, obj1.name);
-				std::swap(obj.surname, obj1.surname);
-				std::swap(obj.age, obj1.age);
-				std::swap(obj.street, obj1.street);
-				std::swap(obj.houseNumber, obj1.houseNumber);
-				std::swap(obj.flat, obj1.flat);
+void Client::sort(Client &obj, Client &obj1, int choice) {
+	switch (choice) {
+	case 1: {if (names(obj.name, obj1.name)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.street, obj1.street);
+		std::swap(obj.houseNumber, obj1.houseNumber);
+		std::swap(obj.flat, obj1.flat);
+	}
+			break;
+	}
+	case 2:
+	{if (surnames(obj.surname, obj1.surname)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.street, obj1.street);
+		std::swap(obj.houseNumber, obj1.houseNumber);
+		std::swap(obj.flat, obj1.flat);
+	}
+	break;
+	}
+	case 3:
+	{if (ages(obj.age, obj1.age)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.street, obj1.street);
+		std::swap(obj.houseNumber, obj1.houseNumber);
+		std::swap(obj.flat, obj1.flat);
+	}
+	break;
+	}
 	}
 }
 

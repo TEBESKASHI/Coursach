@@ -41,7 +41,63 @@ int Courier::selectSearchCriteria() {
 	choice = onlyint();
 	return choice;
 }
-
+int Courier::SelectSortCriteria() {
+	cout << "Сортировать по имени курьера" << endl;
+	cout << "Сортировать по фамилии курьера" << endl;
+	cout << "Сортировать по возрасту курьера" << endl;
+	cout << "Сортировать по стажу курьера" << endl;
+	int choice;
+	choice = onlyint();
+	return choice;
+}
+bool exp(int left, int right) {
+	return left < right;
+}
+bool ages1(int left, int right) {
+	return left > right;
+}
+bool surnames1(char left[30], char right[30]) {
+	return strcmp(left, right)>0;
+}
+bool names1(char left[30], char right[30]) {
+	return strcmp(left, right) > 0;
+}
+void Courier::sort(Courier &obj, Courier &obj1, int choice) {
+	switch (choice) {
+	case 1: {if (names1(obj.name, obj1.name)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.experience, obj1.experience);
+	}
+			break;
+	}
+	case 2: {if (surnames1(obj.surname, obj1.surname)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.experience, obj1.experience);
+	}
+			break;
+	}
+	case 3: {if (ages1(obj.age, obj1.age)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.experience, obj1.experience);
+	}
+			break;
+	}
+	case 4: {if (exp(obj.experience, obj1.experience)) {
+		std::swap(obj.name, obj1.name);
+		std::swap(obj.surname, obj1.surname);
+		std::swap(obj.age, obj1.age);
+		std::swap(obj.experience, obj1.experience);
+	}
+			break;
+	}
+	}
+}
 //функция поиска курьера
 void Courier::search(int a,int choice, char *input) {
 	if (a == 1) {

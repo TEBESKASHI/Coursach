@@ -131,6 +131,33 @@ void Order::filtr(int choice, int a, int minAge, int maxAge) {
 	}
 	}
 }
+int Order::SelectSortCriteria() {
+	cout << "Сортировать по дате" << endl;
+	cout << "Сортировать по сумме заказа" << endl;
+	int choice;
+	choice = onlyint();
+	return choice;
+}
+bool sums(int left, int right) {
+	return left < right;
+}
+bool t(time_t left, time_t right) {
+	return left < right;
+}
+void Order::sort(Order &obj, Order &obj1, int choice) {
+	switch (choice) {
+	case 1: {if (t(obj.seconds, obj1.seconds)) {
+		std::swap(obj, obj1);
+	}
+			break;
+	}
+	case 2: {if (sums(obj.DeliveryCost, obj1.DeliveryCost)) {
+		std::swap(obj, obj1);
+	}
+			break;
+	}
+	}
+}
 //поиск по критериям
 void Order::search(int a,int choice, char *input) {
 	system("cls");

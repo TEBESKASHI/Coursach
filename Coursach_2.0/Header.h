@@ -55,7 +55,8 @@ protected:
 	int houseNumber;
 	int flat;
 public:
-	virtual void sort(Client &obj, Client &obj1);
+	int SelectSortCriteria();
+	virtual void sort(Client &obj, Client &obj1,int choice);
 	virtual int selectFiltrCriteria();
 	virtual void edit(int choice);
 	virtual void filtr(int choice,int a, int minAge, int maxAge);
@@ -85,6 +86,8 @@ public:
 		this->fuelcost = 1.21; //постоянная цена на топливо(живем в лучшем из миров)
 		this->assigned = 0;
 	}
+	virtual int SelectSortCriteria();
+	virtual void sort(Courier &obj, Courier &obj1, int choice);
 	void setInfo();
 	void print(int a);
 	int selectSearchCriteria();
@@ -119,6 +122,8 @@ public:
 	time_t checktime();
 	void printC(time_t a);
 	Courier cor;
+	int SelectSortCriteria();
+	void sort(Order &obj, Order &obj1, int choice);
 };
 
 //класс для юзера и админа
